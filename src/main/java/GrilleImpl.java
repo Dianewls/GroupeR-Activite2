@@ -1,5 +1,8 @@
 
 public class GrilleImpl implements Grille{
+	private int longueur;
+	private int largeur;
+	
 	 /**
 	  * @return largeur/hauteur de la grille
 	  */
