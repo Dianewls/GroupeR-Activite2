@@ -2,8 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-
-  <name>GroupeR-Activite2</name>
+  <name>GroupeR_Activite2</name>
   <description>Mon nouveau projet</description>
   <version>1.1</version>
   <groupId>default</groupId>
@@ -16,6 +15,12 @@
       <version>5.4.2</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+     <groupId>junit</groupId>
+     <artifactId>junit</artifactId>
+     <version>4.11</version>
+     <scope>test</scope>
+   </dependency>
   </dependencies>
 
   <build>
@@ -24,7 +29,12 @@
       <plugin><!-- pour compiler -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.10.0</version>
+
+        <version>3.8.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
       </plugin>
 
       <plugin>
@@ -47,6 +57,7 @@
         <version>3.7.1</version>
         <configuration>
           <locales>fr,en</locales><!-- en francais par defaut -->
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
         </configuration>
       </plugin>
 
@@ -72,9 +83,12 @@
 
 
       <plugin><!-- pour l'analyse avec checkstyle -->
-	<groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-checkstyle-plugin</artifactId>
-	<version>3.0.0</version>
+	      <groupId>org.apache.maven.plugins</groupId>
+	      <artifactId>maven-checkstyle-plugin</artifactId>
+	      <version>3.0.0</version>
+        <configuration>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
+        </configuration>
       </plugin>
 
       <plugin><!-- pour avoir le rapport spotbugs -->
@@ -99,12 +113,33 @@
           </reportSet>
         </reportSets>
       </plugin>
+    
+      <!-- pour avoir le rapport spotbugs -->
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>4.5.3.0</version>
+         <configuration>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
+        </configuration>
+      </plugin>
 
+      <plugin><!-- pour avoir le rapport pmd -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.16.0</version>
+         <configuration>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
+        </configuration>
+      </plugin>
 
       <plugin><!-- pour avoir le rapport checkstyle -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>3.0.0</version>
+         <configuration>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
+        </configuration>
         <reportSets>
           <reportSet>
             <reports>
@@ -134,7 +169,11 @@
       <plugin><!-- pour la verification du code avec PMD -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.16.0</version>
+
+        <version>3.12.0</version>
+         <configuration>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
+        </configuration>
       </plugin>
 
       <plugin><!-- pour avoir le rapport surfire (execution des tests) -->
