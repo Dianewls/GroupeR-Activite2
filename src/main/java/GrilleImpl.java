@@ -1,5 +1,5 @@
 
-public class GrilleImpl implements Grille{
+public class GrilleImpl implements Grille {
 	private int longueur;
 	private int largeur;
 	
