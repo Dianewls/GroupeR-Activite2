@@ -172,7 +172,7 @@ public class TestGrilleImpl {
 	    }
 	    /**
 	     * methode qui teste Possible().
-	     * pour voir si une valeur est inserable dans la grille.
+	     * pour voir si une valeur est inserable dans la grillee.
 	     */
 	    @Test
 	    public final void testPossible2() {
