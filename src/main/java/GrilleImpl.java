@@ -1,7 +1,9 @@
-
-public class GrilleImpl implements Grille{
+/**
+ * Implementation d'une grille.
+ */
+public class GrilleImpl implements Grille {
 	/**
-	 * grille est la grille qui est un tableau à deux dimensions.
+	 * grille est la grille de type tableau à deux dimensions.
 	 */
 	private char[][] grille;
 	/**
@@ -12,14 +14,18 @@ public class GrilleImpl implements Grille{
 	 * largeur répresente la largeur.
 	 */
 	private int largeur;
+	/**
+     * CARRESIZE taille du carre d'une grille 9X9.
+     */
+    private static final int CARRESIZE = 3;
 	 /**
-     * @var GRILLE9x9SIZE taille du tableau 9*9.
+     * GRILLE9X9SIZE represente la taille du tableau 9*9.
      */
-    private static final int GRILLE9x9SIZE = 9;
+    private static final int GRILLE9X9SIZE = 9;
     /**
-     * @var SIZEE taille du tableau 16*16.
+     * GRILLE16X16SIZE taille du tableau 16*16.
      */
-    private static final int GRILLE16x16SIZE = 16;
+    private static final int GRILLE16X16SIZE = 16;
     /**
      * Caractere possible a mettre dans la grille.
      * pour une grille 9x9 : 1..9
@@ -27,17 +33,18 @@ public class GrilleImpl implements Grille{
      */
     private static final char[] CHARPOSSIBLE = new char[]
             {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
-	
     /**
      * Constructeur.
-     * @param unegrille qui est un tableau à deux dimensions
+     * @param unegrille est une grille de type tableau à deux dimensions
      */
-	 public GrilleImpl(char[][] unegrille) {
+	 public GrilleImpl(final char[][] unegrille) {
 		super();
-		if (unegrille.length == GRILLE9x9SIZE || unegrille.length == GRILLE16x16SIZE) {
+		if (unegrille.length == GRILLE9X9SIZE
+		        || unegrille.length == GRILLE16X16SIZE) {
 			this.grille = unegrille;
-		}else {
-			 throw new IllegalArgumentException("Le tableau doit être de dimension 9x9 ou 16x16");
+		} else {
+			 throw new IllegalArgumentException("Le tableau doit "
+			         + "être de dimension 9x9 ou 16x16");
 		}
 	}
 
@@ -45,41 +52,17 @@ public class GrilleImpl implements Grille{
 	  * @return largeur/hauteur de la grille
 	  */
 	@Override
-	public int getDimension() {
+	public final int getDimension() {
 		return grille.length;
 	}
-	 /**
-	  * Affecte une valeur dans la grille
-	  * 
-	  * @param x       position x dans la grille
-	  * @param y       position y dans la grille
-	  * @param value
-	  *            valeur a mettre dans la case
-	  * @throw IllegalArgumentException si x ou y sont hors bornes (0-8)
-	  * @throw IllegalArgumentException si la valeur est interdite aux vues des
-	  *        autres valeurs de la grille
-	  * @throw IllegalArgumentException si value n'est pas un caractere autorise
-	  *        ('1',...,'9')
-	  */
-	@Override
-	public void setValue(int x, int y, char value) throws IllegalArgumentException {
-		if (x < 0 || x > this.getDimension()
-                || y < 0 || y > this.getDimension()) {
-            throw new IllegalArgumentException("x et/ou y est(sont) hors des dimensions");
-        } else {
-            if (!belong(value)) {
-                throw new IllegalArgumentException("Caractere non autorise");
-            }
-        }
-        grille[x][y] = value;
-	}
-	 /**
+	/**
      * Verify if the character to add is authorized.
      * @param c caractere a verifier
      * @return true or false
      */
-    public final boolean belong(final char c) {
-        if (grille.length == GRILLE9x9SIZE || grille.length == GRILLE16x16SIZE) {
+    public final boolean verifChar(final char c) {
+        if (grille.length == GRILLE9X9SIZE
+                || grille.length == GRILLE16X16SIZE) {
             for (char s : CHARPOSSIBLE) {
                 if (s == c) {
                     return true;
@@ -88,25 +71,52 @@ public class GrilleImpl implements Grille{
         }
         return false;
     }
+	 /**
+	  * Affecte une valeur dans la grille.
+	  * @param x       position x dans la grille
+	  * @param y       position y dans la grille
+	  * @param value   valeur a mettre dans la case
+	  * @throw IllegalArgumentException
+	  *        si x ou y sont hors bornes (0-8)
+	  * @throw IllegalArgumentException
+	  *        si la valeur est interdite aux vues des
+	  *        autres valeurs de la grille
+	  * @throw IllegalArgumentException
+	  *        si value n'est pas un caractere autorise
+	  *        ('1',...,'9')
+	  */
+	@Override
+	public final void setValue(final int x, final int y, final char value)
+	        throws IllegalArgumentException {
+		if (x < 0 || x > this.getDimension()
+                || y < 0 || y > this.getDimension()) {
+            throw new IllegalArgumentException("x et/ou y "
+                    + "est(sont) hors des dimensions");
+        } else {
+            if (!verifChar(value)) {
+                throw new IllegalArgumentException("Caractere non autorise");
+            }
+        }
+        grille[x][y] = value;
+	}
 	/**
-	  * Recupere une valeur de la grille
-	  * 
+	  * Recupere une valeur de la grille.
 	  * @param x      position x dans la grille
 	  * @param y      position y dans la grille
 	  * @return valeur dans la case x,y
 	  * @throw IllegalArgumentException si x ou y sont hors bornes (0-8)
 	  */
 	@Override
-	public final char getValue (final int x, final int y) {
-	    if (x < 0 || x > this.getDimension() || y < 0 || y > this.getDimension()) {
+	public final char getValue(final int x, final int y) {
+	    if (x < 0 || x > this.getDimension()
+	            || y < 0 || y > this.getDimension()) {
             throw new IllegalArgumentException("x ou y is out of matrice");
         } else {
             return this.grille[x][y];
         }
 	}
-	 /**
-	  * Test si une grille est terminee
-	  * 
+	/**
+	  * Test si une grille est terminee.
 	  * @return true si la grille est complete
 	  */
 	@Override
@@ -121,43 +131,14 @@ public class GrilleImpl implements Grille{
         return true;
 	}
 	/**
-	  * Test si une valeur est possible dans la grille par rapport a ce qu'elle
-	  * contient deja
-	  * 
-	  * @param x     position x dans la grille
-	  * @param y     position y dans la grille
-	  * @param value
-	  *            valeur a mettre dans la case
-	  * @throw IllegalArgumentException si x ou y sont hors bornes (0-8)
-	  * @throw IllegalArgumentException si value n'est pas un caractere autorise
-	  *        ('1',...,'9',..)
-	  */
-	@Override
-	public final boolean possible(final int x, final int y, final char value) {
-	    if ((x >= 0 || x < grille.length) && (y >= 0 || y < grille.length)) {
-            if (getValue(x, y) == EMPTY) {
-                if (!belong(value)) {
-                    throw new IllegalArgumentException("valeur non autorisee");
-                }
-            } else {
-                return false;
-            }
-        } else {
-            throw new IllegalArgumentException("x ou y sont hors bornes");
-        }
-        return !lignePossible(x, value)
-                &&  !colonnePossible(y, value)
-                &&  !carrePossible(x, y, value);
-    }
-	/**
      * Tester si une valeur est possible pour une ligne donnee.
-     * @param x numero de la ligne
-     * @param y valeur qu'on veut ajouter
+     * @param ligne numero de la ligne
+     * @param value valeur qu'on veut ajouter
      * @return true si la valeur est possible pour la ligne
      */
     public final boolean lignePossible(final int ligne, final char value) {
         for (int i = 0; i < grille.length; i++) {
-            if (getValue(ligne, i) == value  && belong(value)) {
+            if (getValue(ligne, i) == value  && verifChar(value)) {
                 return true;
             }
         }
@@ -171,7 +152,7 @@ public class GrilleImpl implements Grille{
      */
     public final boolean colonnePossible(final int col, final char value) {
         for (int i = 0; i < grille.length; i++) {
-            if (getValue(i, col) == value && belong(value)) {
+            if (getValue(i, col) == value && verifChar(value)) {
                 return true;
             }
         }
@@ -185,17 +166,45 @@ public class GrilleImpl implements Grille{
      *
      *@return true s'elle est possible,  sinon false
      */
-    public final boolean carrePossible(final int row, final int col, final char value) { //3 est la taille d'un carré de sudoku de taille 9x9
-        int r = row - row % 3;
-        int c = col - col % 3;
-        for (int i = r; i < r + 3; i++) {
-            for (int j = c; j < c + 3; j++) {
-                if (grille[i][j] == value && belong(value)) {
+    public final boolean carrePossible(final int row, final int col,
+            final char value) {
+        int r = row - row % CARRESIZE;
+        int c = col - col % CARRESIZE;
+        for (int i = r; i < r + CARRESIZE; i++) {
+            for (int j = c; j < c + CARRESIZE; j++) {
+                if (grille[i][j] == value && verifChar(value)) {
                     return true;
                 }
             }
         }
         return false;
     }
+    /**
+     * Test si une valeur est possible dans la grille.
+     * cela par rapport a ce qu'elle contient deja
+     * @param x     position x dans la grille
+     * @param y     position y dans la grille
+     * @param value valeur a mettre dans la case
+     * @throw IllegalArgumentException si x ou y sont hors bornes (0-8)
+     * @throw IllegalArgumentException si value n'est pas un caractere autorise
+     *        ('1',...,'9',..)
+     */
+   @Override
+   public final boolean possible(final int x, final int y, final char value) {
+       if ((x >= 0 || x < grille.length) && (y >= 0 || y < grille.length)) {
+           if (getValue(x, y) == EMPTY) {
+               if (!verifChar(value)) {
+                   throw new IllegalArgumentException("valeur non autorisee");
+               }
+           } else {
+               return false;
+           }
+       } else {
+           throw new IllegalArgumentException("x ou y sont hors bornes");
+       }
+       return !lignePossible(x, value)
+               &&  !colonnePossible(y, value)
+               &&  !carrePossible(x, y, value);
+   }
 
 }
