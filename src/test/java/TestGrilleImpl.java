@@ -134,35 +134,35 @@ public class TestGrilleImpl {
 	     * methode qui teste Possible() pour voir si une valeur existe dans la ligne.
 	     */
 	    @Test
-	    public void TestPossible() {
+	    public void testPossible() {
 	        assertEquals(false,Grille9x9Test.possible(0, 1, '6'));//Valeur 6 existe dans la ligne
 	     }
 	    /**
 	     * methode qui teste Possible() pour voir si une valeur est inserable dans la grille.
 	     */
 	    @Test
-	    public void TestPossible2() {
+	    public void testPossible2() {
 	        assertEquals(true, Grille9x9Test.possible(0, 2, '2'));
 	   }
 	    /**
 	     * methode qui teste Possible() pour voir si la Case est non vide.
 	     */
 	    @Test
-	    public void TestPossible3() {
+	    public void testPossible3() {
 	      assertEquals(false, Grille9x9Test.possible(0, 1, 'a'));
 	    }
 	    /**
 	     * methode qui teste Possible() pour voir si le caractere est autorise.
 	     */
 	    @Test
-	    public void TestPossible4() {
+	    public void testPossible4() {
 	       Assertions.assertThrows(IllegalArgumentException.class, () -> Grille9x9Test.possible(0, 0, 'z'));
 	    }
 	    /**
 	     * methode qui teste Possible() pour voir si c'est hors grille.
 	     */
 	    @Test
-	    public void TestPossible5() {
+	    public void testPossible5() {
 	      Assertions.assertThrows(IllegalArgumentException.class, () -> Grille9x9Test.possible(34, 88, 'a'));
 	    }
 
