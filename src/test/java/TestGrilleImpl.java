@@ -169,7 +169,7 @@ public class TestGrilleImpl {
 	    @Test
 	    public final void testPossible() {
 	        assertEquals(false, grille9x9Test.possible(0, 1, '6'));
-	     }
+	    }
 	    /**
 	     * methode qui teste Possible().
 	     * pour voir si une valeur est inserable dans la grille.
@@ -177,7 +177,7 @@ public class TestGrilleImpl {
 	    @Test
 	    public final void testPossible2() {
 	        assertEquals(true, grille9x9Test.possible(0, 2, '2'));
-	   }
+	    }
 	    /**
 	     * methode qui teste Possible() pour voir si la Case est non vide.
 	     */
@@ -202,5 +202,4 @@ public class TestGrilleImpl {
 	      Assertions.assertThrows(IllegalArgumentException.class,
 	              () -> grille9x9Test.possible(34, 88, 'a'));
 	    }
-
 }
