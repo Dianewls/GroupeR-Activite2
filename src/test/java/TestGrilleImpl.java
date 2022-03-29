@@ -1,3 +1,6 @@
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 public class TestGrilleImpl {
 
@@ -54,5 +57,13 @@ public class TestGrilleImpl {
 			   {'6', 'A', '9', 'C', '4', '5', '7', '1', '8', '3', 'G', '2', 'B', 'D', 'F', 'E'},
 			   {'F', '1', 'E', '4', '3', 'B', '2', 'C', '5', '9', '6', 'D', 'A', '7', '8', 'G'},
 			   {'G', '7', '3', 'D', 'A', 'F', 'E', '8', 'B', '4', '1', 'C', '6', '9', '2', '5'}};
+	   /** grille de test 9x9 */
+	   private GrilleImpl Grille9x9Test = new GrilleImpl(Grille9x9Aremplir);
+	   
+	   /** test de la méthode getDimension()*/
+	   @Test
+	   public void getDimension() {
+		   assertEquals(9, Grille9x9Test.getDimension());
+	   }
 
 }
