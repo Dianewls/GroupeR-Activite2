@@ -60,7 +60,7 @@ public class TestGrilleImpl {
 	   /** grille de test 9x9 */
 	   private GrilleImpl Grille9x9Test = new GrilleImpl(Grille9x9Aremplir);
 	   
-	   /** test de la méthode getDimension()*/
+	   /** test de la méthode getDimension() */
 	   @Test
 	   public void getDimension() {
 		   assertEquals(9, Grille9x9Test.getDimension());
