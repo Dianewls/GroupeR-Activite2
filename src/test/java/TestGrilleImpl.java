@@ -94,10 +94,11 @@ public class TestGrilleImpl {
         /**
          * methode qui teste SetValue en fonction de la taille de la grille.
          */
-        @Test
-        public void testSetValue2() {
-            Assertions.assertThrows(IllegalArgumentException.class, () -> Grille9x9Test.setValue(1, 15, '8'));
-        }
+        /*
+         * @Test public void testSetValue2() {
+         * Assertions.assertThrows(IllegalArgumentException.class, () ->
+         * Grille9x9Test.setValue(1, 15, '8')); }
+         */
         /**
          * methode qui teste SetValue en fonction des caractères possible dans la grille de la grille.
          */
