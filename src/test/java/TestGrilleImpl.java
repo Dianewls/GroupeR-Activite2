@@ -125,11 +125,11 @@ public class TestGrilleImpl {
     /**
      * methode qui teste GetValue selon le taille de grille.
      */
-    /*
-     * @Test public final void testGetValue2() {
-     * Assertions.assertThrows(IllegalArgumentException.class, () ->
-     * grille9x9Test.getValue(15, 1)); }
-     */
+     @Test 
+     public final void testGetValue2() {
+         Assertions.assertThrows(IllegalArgumentException.class, () ->
+         grille9x9Test.getValue(15, 1));
+     }
     /**
      * methode qui teste SetValue.
      */
@@ -141,21 +141,20 @@ public class TestGrilleImpl {
     /**
      * methode qui teste SetValue en fonction de la taille de la grille.
      */
-    /*
-     * @Test public final void testSetValue2() {
-     * Assertions.assertThrows(IllegalArgumentException.class, () ->
-     * grille9x9Test.setValue(1, 8, '8')); }
-     */
+     @Test
+     public final void testSetValue2() {
+         Assertions.assertThrows(IllegalArgumentException.class, () ->
+         grille9x9Test.setValue(1, 8, '8'));
+     }
     /**
      * methode qui teste SetValue en fonction des caractères.
      * possible dans la grille de la grille.
      */
-
-    /*
-     * @Test public final void testSetValue3() {
-     * Assertions.assertThrows(IllegalArgumentException.class, () ->
-     * grille9x9Test.setValue(1, 2, 'z')); }
-     */
+     @Test
+     public final void testSetValue3() {
+         Assertions.assertThrows(IllegalArgumentException.class, () ->
+         grille9x9Test.setValue(1, 2, 'z'));
+     }
     /**
      * methode qui teste Complete().
      */
