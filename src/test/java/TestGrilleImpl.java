@@ -159,7 +159,7 @@ public class TestGrilleImpl {
            Assertions.assertThrows(IllegalArgumentException.class, () -> Grille9x9Test.possible(0, 0, 'z'));
         }
         /**
-         * methode qui teste Possible() pour voir si c'est hors grille.
+         * methode qui teste Possible() pour voir si c'est hors grille .
          */
         @Test
         public void testPossible5() {
