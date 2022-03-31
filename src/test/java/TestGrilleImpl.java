@@ -1,7 +1,7 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Test;
-//import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assertions;
 /**
  * Classe pour les tests.
  */
@@ -104,102 +104,97 @@ public class TestGrilleImpl {
                 '5', '9', '6', 'D', 'A', '7', '8', 'G'},
                {'G', '7', '3', 'D', 'A', 'F', 'E', '8',
                 'B', '4', '1', 'C', '6', '9', '2', '5'}};
-       /**
+       /** 
         * grille de test 9x9.
         * */
-       private GrilleImpl grille9x9Test = new GrilleImpl(grille9x9Aremplir);
-       /**
-        * test de la méthode getDimension().
-        */
+       private GrilleImpl Grille9x9Test = new GrilleImpl(grille9x9Aremplir);
+       
+       /** test de la méthode getDimension()*/
        @Test
-       public final void testGetDimension() {
-           assertEquals(9, grille9x9Test.getDimension());
+       public void testGetDimension() {
+           assertEquals(9, Grille9x9Test.getDimension());
        }
+       
        /**
          * methode qui teste SetValue.
          */
         @Test
-        public final void testSetValue() {
-            grille9x9Test.setValue(0, 0, '2');
-            assertEquals('2', grille9x9Test.getValue(0, 0));
+        public void testSetValue() {
+            Grille9x9Test.setValue(0, 0, '2');
+            assertEquals('2',Grille9x9Test.getValue(0, 0));     
         }
         /**
          * methode qui teste SetValue en fonction de la taille de la grille.
          */
-        /*
-         * @Test public void testSetValue2() {
-         * Assertions.assertThrows(IllegalArgumentException.class, () ->
-         * grille9x9Test.setValue(1, 15, '8')); }
-         */
+        @Test
+        public void testSetValue2() {
+            Assertions.assertThrows(IllegalArgumentException.class, () -> Grille9x9Test.setValue(1, 15, '8'));
+        }
         /**
-         * methode qui teste SetValue en fonction.
-         * des caractères possible dans la grille de la grille.
+         * methode qui teste SetValue en fonction des caractères possible dans la grille de la grille.
          */
-
-        /*
-         * @Test public void testSetValue3() {
-         * Assertions.assertThrows(IllegalArgumentException.class, () ->
-         * grille9x9Test.setValue(1, 2, 'z')); }
-         */
+        @Test
+        public void testSetValue3() {
+            Assertions.assertThrows(IllegalArgumentException.class, () -> Grille9x9Test.setValue(1, 2, 'z'));       
+        }
         /**
          * methode qui teste GetValue selon le contenu.
          */
         @Test
-        public final void testGetValue() {
-            assertEquals('@', grille9x9Test.getValue(0, 0));
+        public void testGetValue()
+        {
+            assertEquals('@',Grille9x9Test.getValue(0, 0));
         }
         /**
          * methode qui teste GetValue selon le taille de grille.
          */
-        /*
-         * @Test public void testGetValue2() {
-         * Assertions.assertThrows(IllegalArgumentException.class, () ->
-         * grille9x9Test.getValue(15, 1)); }
-         */
+        @Test
+        public void testGetValue2()
+        {
+           Assertions.assertThrows(IllegalArgumentException.class, () -> Grille9x9Test.getValue(15, 1));
+        }
+        
         /**
          * methode qui teste Complete().
          */
         @Test
-        public final void testComplete() {
-            assertEquals(false, grille9x9Test.complete());
+        public void testComplete()
+        {
+            assertEquals(false,Grille9x9Test.complete());
         }
         /**
-         * methode qui teste Possible().
-         * pour voir si une valeur existe dans la ligne.
+         * methode qui teste Possible() pour voir si une valeur existe dans la ligne.
          */
         @Test
-        public final void testPossible() {
-            assertEquals(false, grille9x9Test.possible(0, 1, '6'));
+        public void testPossible() {
+            assertEquals(false,Grille9x9Test.possible(0, 1, '6'));//Valeur 6 existe dans la ligne
          }
         /**
-         * methode qui teste Possible().
-         * pour voir si une valeur est inserable dans la grille.
+         * methode qui teste Possible() pour voir si une valeur est inserable dans la grille.
          */
         @Test
-        public final void testPossible2() {
-            assertEquals(true, grille9x9Test.possible(0, 2, '2'));
+        public void testPossible2() {
+            assertEquals(true, Grille9x9Test.possible(0, 2, '2'));
        }
         /**
          * methode qui teste Possible() pour voir si la Case est non vide.
          */
         @Test
-        public final void testPossible3() {
-          assertEquals(false, grille9x9Test.possible(0, 1, 'a'));
+        public void testPossible3() {
+          assertEquals(false, Grille9x9Test.possible(0, 1, 'a'));
         }
         /**
          * methode qui teste Possible() pour voir si le caractere est autorise.
          */
-        /*
-         * @Test public void testPossible4() {
-         * Assertions.assertThrows(IllegalArgumentException.class, () ->
-         * grille9x9Test.possible(0, 0, 'z')); }
-         */
+        @Test
+        public void testPossible4() {
+           Assertions.assertThrows(IllegalArgumentException.class, () -> Grille9x9Test.possible(0, 0, 'z'));
+        }
         /**
-         * methode qui teste Possible() pour voir si c'est hors grille .
+         * methode qui teste Possible() pour voir si c'est hors grille.
          */
-        /*
-         * @Test public void testPossible5() {
-         * Assertions.assertThrows(IllegalArgumentException.class, () ->
-         * grille9x9Test.possible(34, 88, 'a')); }
-         */
+        @Test
+        public void testPossible5() {
+          Assertions.assertThrows(IllegalArgumentException.class, () -> Grille9x9Test.possible(34, 88, 'a'));
+        }
 }
