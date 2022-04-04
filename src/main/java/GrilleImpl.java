@@ -190,7 +190,7 @@ public class GrilleImpl implements Grille {
      */
     @Override
     public final boolean possible(final int x, final int y, final char value) {
-        if ((x >= 0 && x < grille.length) && (y >= 0 && y < grille.length)) {
+        if (x >= 0 && x < grille.length && y >= 0 && y < grille.length) {
             if (getValue(x, y) == EMPTY) {
                 if (!verifChar(value)) {
                     throw new IllegalArgumentException("valeur non autorisee");
