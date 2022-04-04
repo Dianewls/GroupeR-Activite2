@@ -7,14 +7,6 @@ public class GrilleImpl implements Grille {
      */
     private char[][] grille;
     /**
-     * longueur répresente la longueur.
-     */
-    private int longueur;
-    /**
-     * largeur répresente la largeur.
-     */
-    private int largeur;
-    /**
      * CARRESIZE taille du carre d'une grille 9X9.
      */
     private static final int CARRESIZE = 3;
@@ -41,7 +33,7 @@ public class GrilleImpl implements Grille {
         super();
         if (unegrille.length == GRILLE9X9SIZE
                 || unegrille.length == GRILLE16X16SIZE) {
-            this.grille = unegrille;
+            this.grille = unegrille.clone();
         } else {
             throw new IllegalArgumentException("Le tableau doit "
                     + "être de dimension 9x9 ou 16x16");
