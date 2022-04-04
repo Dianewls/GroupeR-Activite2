@@ -32,7 +32,7 @@ public class TestGrilleImpl {
                {'2', '1', '8', '9', '3', '6', '7', '4', '5'},
                {'7', '5', '3', '8', '2', '4', '1', '9', '6'}};
        /**
-        * Grille16x16Aremplir grille de taille 16 de base.
+        * Grille16x16Aremplir grille de taille16 de base.
         */
        private char[][] grille16x16Aremplir = {
                {'@', '2', '@', '@', '8', '@', 'B', '@',
