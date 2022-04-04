@@ -229,6 +229,30 @@ public class TestGrilleImpl {
          }
         /**
          * methode qui teste Possible().
+         * pour voir si une valeur existe dans la ligne, cas où ce n'est pas possible.
+         */
+        @Test
+        public final void testLignePossible() {
+            assertEquals(true, grille9x9Test.lignePossible(0,'6'));
+         }
+        /**
+         * methode qui teste Possible().
+         * pour voir si une valeur existe dans la ligne, cas où ce n'est pas possible.
+         */
+        @Test
+        public final void testColonnePossible() {
+            assertEquals(true, grille9x9Test.colonnePossible(0,'6'));
+         }
+        /**
+         * methode qui teste Possible().
+         * pour voir si une valeur existe dans la ligne, cas où ce n'est pas possible.
+         */
+        @Test
+        public final void testCarrePossible() {
+            assertEquals(true, grille9x9Test.carrePossible(5,0,'8'));
+         }
+        /**
+         * methode qui teste Possible().
          * pour voir si une valeur existe dans la ligne, cas où c'est possible.
          */
         @Test
