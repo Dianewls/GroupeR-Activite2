@@ -105,6 +105,17 @@ public class TestGrilleImpl {
                {'G', '7', '3', 'D', 'A', 'F', 'E', '8',
                 'B', '4', '1', 'C', '6', '9', '2', '5'}};
        /**
+        * Grille7x8Aremplir grille de taille non valide.
+        */
+       private char[][] grille7x8Aremplir = {
+               {'@', '6', '@', '@', '4', '5', '3', '7'},
+               {'@', '@', '5', '6', '7', '3', '4', '2'},
+               {'@', '@', '4', '@', '@', '@', '@', '@'},
+               {'5', '@', '@', '7', '@', '2', '@', '@'},
+               {'6', '@', '9', '@', '@', '@', '2', '5'},
+               {'8', '@', '7', '@', '@', '9', '@', '@'},
+               {'@', '5', '@', '@', '2', '@', '1', '@'}};
+       /**
         * Max TAB.
         */
        private static final int DIMGRILLE = 9;
@@ -125,6 +136,22 @@ public class TestGrilleImpl {
         * */
        private GrilleImpl grille9x9Test = new GrilleImpl(grille9x9Aremplir);
        /**
+        * grille de test 16x16.
+        * */
+       private GrilleImpl grille16x16Test = new GrilleImpl(grille16x16Aremplir);
+       /**
+        * grille de test 9x9 remplie.
+        * */
+       private GrilleImpl grille9x9TestRemplie = new GrilleImpl(grille9x9Remplie);
+       /**
+        * methode qui teste le constructeur.
+        */
+       @Test
+       public final void grillConstruteurTestKo() {
+         Assertions.assertThrows(IllegalArgumentException.class,
+                 () -> new GrilleImpl(grille7x8Aremplir));
+       }
+       /**
         * test de la méthode getDimension().
         */
        @Test
@@ -132,12 +159,20 @@ public class TestGrilleImpl {
            assertEquals(DIMGRILLE, grille9x9Test.getDimension());
        }
        /**
-         * methode qui teste SetValue.
+         * methode qui teste SetValue pour une grille 9x9.
          */
         @Test
         public final void testSetValue() {
             grille9x9Test.setValue(0, 0, '2');
             assertEquals('2', grille9x9Test.getValue(0, 0));
+        }
+        /**
+         * methode qui teste SetValue pour une grille 16x16.
+         */
+        @Test
+        public final void testSetValueBis() {
+            grille16x16Test.setValue(0, 0, 'E');
+            assertEquals('E', grille16x16Test.getValue(0, 0));
         }
         /**
          * methode qui teste SetValue en fonction de la taille de la grille.
@@ -172,19 +207,34 @@ public class TestGrilleImpl {
                    () -> grille9x9Test.getValue(COL, 1));
         }
         /**
-         * methode qui teste Complete().
+         * methode qui teste Complete() cas où la grille n'est pas complète.
          */
         @Test
         public final void testComplete() {
             assertEquals(false, grille9x9Test.complete());
         }
         /**
+         * methode qui teste Complete() cas où la grille est pas complète.
+         */
+        @Test
+        public final void testComplete2() {
+            assertEquals(true, grille9x9TestRemplie.complete());
+        }
+        /**
          * methode qui teste Possible().
-         * pour voir si une valeur existe dans la ligne.
+         * pour voir si une valeur existe dans la ligne, cas où ce n'est pas possible.
          */
         @Test
         public final void testPossible() {
             assertEquals(false, grille9x9Test.possible(0, 1, '6'));
+         }
+        /**
+         * methode qui teste Possible().
+         * pour voir si une valeur existe dans la ligne, cas où c'est possible.
+         */
+        @Test
+        public final void testPossibleBis() {
+            assertEquals(true, grille9x9Test.possible(0, 0, '9'));
          }
         /**
          * methode qui teste Possible().

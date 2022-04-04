@@ -18,19 +18,21 @@ public class GrilleImpl implements Grille {
      * GRILLE16X16SIZE taille du tableau 16*16.
      */
     private static final int GRILLE16X16SIZE = 16;
-    /**
-     * Caractere possible a mettre dans la grille.
-     * pour une grille 9x9 : 1..9
-     * pour une grille 16x16: 0..9-a..f
-     */
-    private static final char[] CHARPOSSIBLE = new char[]
-            {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    /*
+    * Caractere possible a mettre dans la grille 9X9.
+    */
+   private static final char[] CHARPOSSIBLE9x9 = new char[]
+           {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
+   /*
+    * Caractere possible a mettre dans la grille 16X16.
+    */
+   private static final char[] CHARPOSSIBLE16x16 = new char[]
+           {'1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E','F'};
     /**
      * Constructeur.
      * @param unegrille est une grille de type tableau à deux dimensions
      */
     public GrilleImpl(final char[][] unegrille) {
-        super();
         if (unegrille.length == GRILLE9X9SIZE
                 || unegrille.length == GRILLE16X16SIZE) {
             this.grille = unegrille.clone();
@@ -39,7 +41,6 @@ public class GrilleImpl implements Grille {
                     + "être de dimension 9x9 ou 16x16");
         }
     }
-
     /**
      * @return largeur/hauteur de la grille
      */
@@ -53,13 +54,18 @@ public class GrilleImpl implements Grille {
      * @return true or false
      */
     public final boolean verifChar(final char c) {
-        if (grille.length == GRILLE9X9SIZE
-                || grille.length == GRILLE16X16SIZE) {
-            for (char s : CHARPOSSIBLE) {
+        if (this.grille.length == GRILLE9X9SIZE) {
+            for (char s : CHARPOSSIBLE9x9) {
                 if (s == c) {
                     return true;
                 }
             }
+        }else if (this.grille.length == GRILLE16X16SIZE) {
+             for (char s : CHARPOSSIBLE16x16) {
+                if (s == c) {
+                    return true;
+                    }
+                }
         }
         return false;
     }
@@ -183,7 +189,7 @@ public class GrilleImpl implements Grille {
      */
     @Override
     public final boolean possible(final int x, final int y, final char value) {
-        if ((x >= 0 || x < grille.length) && (y >= 0 || y < grille.length)) {
+        if ((x >= 0 && x < grille.length) && (y >= 0 && y < grille.length)) {
             if (getValue(x, y) == EMPTY) {
                 if (!verifChar(value)) {
                     throw new IllegalArgumentException("valeur non autorisee");
