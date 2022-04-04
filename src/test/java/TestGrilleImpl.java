@@ -104,24 +104,22 @@ public class TestGrilleImpl {
                 '5', '9', '6', 'D', 'A', '7', '8', 'G'},
                {'G', '7', '3', 'D', 'A', 'F', 'E', '8',
                 'B', '4', '1', 'C', '6', '9', '2', '5'}};
-       /** 
+       /**
         * grille de test 9x9.
         * */
        private GrilleImpl Grille9x9Test = new GrilleImpl(grille9x9Aremplir);
-       
-       /** test de la méthode getDimension()*/
+       /** test de la méthode getDimension().*/
        @Test
        public void testGetDimension() {
            assertEquals(9, Grille9x9Test.getDimension());
        }
-       
        /**
          * methode qui teste SetValue.
          */
         @Test
         public void testSetValue() {
             Grille9x9Test.setValue(0, 0, '2');
-            assertEquals('2',Grille9x9Test.getValue(0, 0));     
+            assertEquals('2', Grille9x9Test.getValue(0, 0));
         }
         /**
          * methode qui teste SetValue en fonction de la taille de la grille.
@@ -135,7 +133,7 @@ public class TestGrilleImpl {
          */
         @Test
         public void testSetValue3() {
-            Assertions.assertThrows(IllegalArgumentException.class, () -> Grille9x9Test.setValue(1, 2, 'z'));       
+            Assertions.assertThrows(IllegalArgumentException.class, () -> Grille9x9Test.setValue(1, 2, 'z')); 
         }
         /**
          * methode qui teste GetValue selon le contenu.
@@ -158,8 +156,7 @@ public class TestGrilleImpl {
          * methode qui teste Complete().
          */
         @Test
-        public void testComplete()
-        {
+        public void testComplete() {
             assertEquals(false,Grille9x9Test.complete());
         }
         /**
@@ -167,7 +164,7 @@ public class TestGrilleImpl {
          */
         @Test
         public void testPossible() {
-            assertEquals(false,Grille9x9Test.possible(0, 1, '6'));//Valeur 6 existe dans la ligne
+            assertEquals(false, Grille9x9Test.possible(0, 1, '6')); //Valeur 6 existe dans la ligne
          }
         /**
          * methode qui teste Possible() pour voir si une valeur est inserable dans la grille.
