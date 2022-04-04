@@ -142,7 +142,8 @@ public class TestGrilleImpl {
        /**
         * grille de test 9x9 remplie.
         * */
-       private GrilleImpl grille9x9TestRemplie = new GrilleImpl(grille9x9Remplie);
+       private GrilleImpl grille9x9TestRemplie =
+               new GrilleImpl(grille9x9Remplie);
        /**
         * methode qui teste le constructeur.
         */
@@ -222,7 +223,8 @@ public class TestGrilleImpl {
         }
         /**
          * methode qui teste Possible().
-         * pour voir si une valeur existe dans la ligne, cas où ce n'est pas possible.
+         * pour voir si une valeur existe dans la ligne,
+         * cas où ce n'est pas possible.
          */
         @Test
         public final void testPossible() {

@@ -18,16 +18,17 @@ public class GrilleImpl implements Grille {
      * GRILLE16X16SIZE taille du tableau 16*16.
      */
     private static final int GRILLE16X16SIZE = 16;
-    /*
+    /**
     * Caractere possible a mettre dans la grille 9X9.
     */
-   private static final char[] CHARPOSSIBLE9x9 = new char[]
+   private static final char[] CHARPOSSIBLE9X9 = new char[]
            {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
-   /*
+   /**
     * Caractere possible a mettre dans la grille 16X16.
     */
-   private static final char[] CHARPOSSIBLE16x16 = new char[]
-           {'1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E','F'};
+   private static final char[] CHARPOSSIBLE16X16 = new char[]
+           {'1', '2', '3', '4', '5', '6', '7', '8',
+                   '9', 'A', 'B', 'C', 'D', 'E', 'F'};
     /**
      * Constructeur.
      * @param unegrille est une grille de type tableau à deux dimensions
@@ -55,13 +56,13 @@ public class GrilleImpl implements Grille {
      */
     public final boolean verifChar(final char c) {
         if (this.grille.length == GRILLE9X9SIZE) {
-            for (char s : CHARPOSSIBLE9x9) {
+            for (char s : CHARPOSSIBLE9X9) {
                 if (s == c) {
                     return true;
                 }
             }
-        }else if (this.grille.length == GRILLE16X16SIZE) {
-             for (char s : CHARPOSSIBLE16x16) {
+        } else if (this.grille.length == GRILLE16X16SIZE) {
+             for (char s : CHARPOSSIBLE16X16) {
                 if (s == c) {
                     return true;
                     }
