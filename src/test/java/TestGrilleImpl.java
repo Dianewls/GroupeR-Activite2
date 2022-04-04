@@ -1,5 +1,4 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 /**
@@ -132,6 +131,10 @@ public class TestGrilleImpl {
         */
        private static final int COL1 = 88;
        /**
+        * Max TAB.
+        */
+       private static final int LIGNE1 = 88;
+       /**
         * grille de test 9x9.
         * */
        private GrilleImpl grille9x9Test = new GrilleImpl(grille9x9Aremplir);
@@ -184,6 +187,14 @@ public class TestGrilleImpl {
                     () -> grille9x9Test.setValue(1, COL, '8'));
         }
         /**
+         * methode qui teste SetValue en fonction de la taille de la grille.
+         */
+        @Test
+        public final void testSetValue4() {
+            Assertions.assertThrows(IllegalArgumentException.class,
+                    () -> grille9x9Test.setValue(LIGNE, 0, '8'));
+        }
+        /**
          * methode qui teste SetValue en fonction des caractères.
          * possible dans la grille de la grille.
          */
@@ -229,6 +240,30 @@ public class TestGrilleImpl {
         @Test
         public final void testPossible() {
             assertEquals(false, grille9x9Test.possible(0, 1, '6'));
+         }
+        /**
+         * methode qui teste Possible().
+         * pour voir si une valeur existe dans la ligne, cas où ce n'est pas possible.
+         */
+        @Test
+        public final void testLignePossible() {
+            assertEquals(true, grille9x9Test.lignePossible(0,'6'));
+         }
+        /**
+         * methode qui teste Possible().
+         * pour voir si une valeur existe dans la ligne, cas où ce n'est pas possible.
+         */
+        @Test
+        public final void testColonnePossible() {
+            assertEquals(true, grille9x9Test.colonnePossible(0,'6'));
+         }
+        /**
+         * methode qui teste Possible().
+         * pour voir si une valeur existe dans la ligne, cas où ce n'est pas possible.
+         */
+        @Test
+        public final void testCarrePossible() {
+            assertEquals(true, grille9x9Test.carrePossible(5,0,'8'));
          }
         /**
          * methode qui teste Possible().
