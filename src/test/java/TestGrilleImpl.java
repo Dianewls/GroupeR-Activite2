@@ -135,6 +135,14 @@ public class TestGrilleImpl {
         */
        private static final int LIGNE1 = 88;
        /**
+        * ligne Possible, test sur CarrePossible.
+        */
+       private static final int LIGNEP = 5;
+       /**
+        * colonne Possible, test sur CarrePossible.
+        */
+       private static final int COLP = 0;
+       /**
         * grille de test 9x9.
         * */
        private GrilleImpl grille9x9Test = new GrilleImpl(grille9x9Aremplir);
@@ -243,27 +251,30 @@ public class TestGrilleImpl {
          }
         /**
          * methode qui teste Possible().
-         * pour voir si une valeur existe dans la ligne, cas où ce n'est pas possible.
+         * pour voir si une valeur existe dans la ligne,
+         * cas où ce n'est pas possible.
          */
         @Test
         public final void testLignePossible() {
-            assertEquals(true, grille9x9Test.lignePossible(0,'6'));
+            assertEquals(true, grille9x9Test.lignePossible(0, '6'));
          }
         /**
          * methode qui teste Possible().
-         * pour voir si une valeur existe dans la ligne, cas où ce n'est pas possible.
+         * pour voir si une valeur existe dans la ligne,
+         * cas où ce n'est pas possible.
          */
         @Test
         public final void testColonnePossible() {
-            assertEquals(true, grille9x9Test.colonnePossible(0,'6'));
+            assertEquals(true, grille9x9Test.colonnePossible(0, '6'));
          }
         /**
          * methode qui teste Possible().
-         * pour voir si une valeur existe dans la ligne, cas où ce n'est pas possible.
+         * pour voir si une valeur existe dans la ligne,
+         * cas où ce n'est pas possible.
          */
         @Test
         public final void testCarrePossible() {
-            assertEquals(true, grille9x9Test.carrePossible(5,0,'8'));
+            assertEquals(true, grille9x9Test.carrePossible(LIGNEP, COLP, '8'));
          }
         /**
          * methode qui teste Possible().
