@@ -32,7 +32,7 @@ public class TestGrilleImpl {
                {'2', '1', '8', '9', '3', '6', '7', '4', '5'},
                {'7', '5', '3', '8', '2', '4', '1', '9', '6'}};
        /**
-        * Grille16x16Aremplir grille de taille16 de base.
+        * Grille16x16Aremplir grille de taille 16 de base.
         */
        private char[][] grille16x16Aremplir = {
                {'@', '2', '@', '@', '8', '@', 'B', '@',
@@ -115,48 +115,25 @@ public class TestGrilleImpl {
                {'8', '@', '7', '@', '@', '9', '@', '@'},
                {'@', '5', '@', '@', '2', '@', '1', '@'}};
        /**
-        * Max TAB.
+        * grille9x9Test grille de test 9x9.
         */
-       private static final int DIMGRILLE = 9;
-       /**
-        * Max TAB.
-        */
-       private static final int COL = 15;
-       /**
-        * Max TAB.
-        */
-       private static final int LIGNE = 34;
-       /**
-        * Max TAB.
-        */
-       private static final int COL1 = 88;
-       /**
-        * Max TAB.
-        */
-       private static final int LIGNE1 = 88;
-       /**
-        * ligne Possible, test sur CarrePossible.
-        */
-       private static final int LIGNEP = 5;
-       /**
-        * colonne Possible, test sur CarrePossible.
-        */
-       private static final int COLP = 0;
-       /**
-        * grille de test 9x9.
-        * */
        private GrilleImpl grille9x9Test = new GrilleImpl(grille9x9Aremplir);
        /**
-        * grille de test 16x16.
-        * */
+        * grille16x16Test grille de test 16x16.
+        */
        private GrilleImpl grille16x16Test = new GrilleImpl(grille16x16Aremplir);
        /**
-        * grille de test 9x9 remplie.
-        * */
+        * grille9x9TestRemplie grille de test 9x9 remplie.
+        */
        private GrilleImpl grille9x9TestRemplie =
                new GrilleImpl(grille9x9Remplie);
        /**
-        * methode qui teste le constructeur.
+        * grille9x9TestRemplie grille de test 9x9 remplie.
+        */
+       private GrilleImpl grille16x16TestRemplie =
+               new GrilleImpl(grille16x16Remplie);
+       /**
+        * methode qui teste le constructeur avec une grille 7X8.
         */
        @Test
        public final void grillConstruteurTestKo() {
@@ -164,11 +141,34 @@ public class TestGrilleImpl {
                  () -> new GrilleImpl(grille7x8Aremplir));
        }
        /**
-        * test de la méthode getDimension().
+        * test de la méthode getDimension() pour une girllr 9X9.
         */
        @Test
-       public final void testGetDimension() {
-           assertEquals(DIMGRILLE, grille9x9Test.getDimension());
+       public final void testGetDimension9X9() {
+           final int dimGrille = 9;
+           assertEquals(dimGrille, grille9x9Test.getDimension());
+       }
+       /**
+        * test de la méthode getDimension() pour une grille 16X16.
+        */
+       @Test
+       public final void testGetDimension16X16() {
+           final int dimGrille = 16;
+           assertEquals(dimGrille, grille16x16Test.getDimension());
+       }
+       /**
+        * methode qui teste VerifChar pour une grille 9x9.
+        */
+       @Test
+       public final void testVerifChar1() {
+           assertEquals(true, grille9x9Test.verifChar('1'));
+       }
+       /**
+        * methode qui teste VerifChar pour une grille 16x16.
+        */
+       @Test
+       public final void testVerifChar2() {
+           assertEquals(true, grille16x16Test.verifChar('A'));
        }
        /**
          * methode qui teste SetValue pour une grille 9x9.
@@ -187,132 +187,548 @@ public class TestGrilleImpl {
             assertEquals('E', grille16x16Test.getValue(0, 0));
         }
         /**
-         * methode qui teste SetValue en fonction de la taille de la grille.
+         * methode qui teste la fonction SetValue
+         * lorsque la colonne est hors borne.
          */
         @Test
         public final void testSetValue2() {
+            final int col = 15;
             Assertions.assertThrows(IllegalArgumentException.class,
-                    () -> grille9x9Test.setValue(1, COL, '8'));
+                    () -> grille9x9Test.setValue(1, col, '8'));
         }
         /**
-         * methode qui teste SetValue en fonction de la taille de la grille.
+         * methode qui teste la fonction SetValue
+         * lorsque la ligne est hors borne.
+         */
+        @Test
+        public final void testSetValue3() {
+            final int ligne = 34;
+            Assertions.assertThrows(IllegalArgumentException.class,
+                    () -> grille9x9Test.setValue(ligne, 0, '8'));
+        }
+        /**
+         * methode qui teste SetValue .
+         * lorque le caractere donné est un caractère non possible
+         * de la grille 9X9.
          */
         @Test
         public final void testSetValue4() {
             Assertions.assertThrows(IllegalArgumentException.class,
-                    () -> grille9x9Test.setValue(LIGNE, 0, '8'));
-        }
-        /**
-         * methode qui teste SetValue en fonction des caractères.
-         * possible dans la grille de la grille.
-         */
-        @Test
-        public final void testSetValue3() {
-            Assertions.assertThrows(IllegalArgumentException.class,
                     () -> grille9x9Test.setValue(1, 2, 'z'));
         }
         /**
-         * methode qui teste GetValue selon le contenu.
+         * methode qui teste SetValue .
+         * lorque le caractere donné est un caractère non possible
+         * de la grille 16X16.
+         */
+        @Test
+        public final void testSetValue5() {
+            Assertions.assertThrows(IllegalArgumentException.class,
+                    () -> grille16x16Test.setValue(1, 2, 'z'));
+        }
+        /**
+         * methode qui teste la fonction GetValue selon le contenu.
+         * grille 9X9
          */
         @Test
         public final void testGetValue() {
             assertEquals('@', grille9x9Test.getValue(0, 0));
         }
         /**
-         * methode qui teste GetValue selon le taille de grille.
+         * methode qui teste la fonction GetValue selon le contenu.
+         * grille 16X16
          */
         @Test
         public final void testGetValue2() {
-           Assertions.assertThrows(IllegalArgumentException.class,
-                   () -> grille9x9Test.getValue(COL, 1));
+            assertEquals('@', grille16x16Test.getValue(0, 0));
         }
         /**
-         * methode qui teste Complete() cas où la grille n'est pas complète.
+         * methode qui teste la fonction GetValue
+         * lorsque la colonne est hors borne.
+         * grille 9X9
          */
         @Test
-        public final void testComplete() {
+        public final void testGetValue3() {
+           final int col = 15;
+           Assertions.assertThrows(IllegalArgumentException.class,
+                   () -> grille9x9Test.getValue(col, 1));
+        }
+        /**
+         * methode qui teste la fonction GetValue
+         * lorsque la ligne est hors borne.
+         * grille 9X9
+         */
+        @Test
+        public final void testGetValue4() {
+           final int ligne = 34;
+           Assertions.assertThrows(IllegalArgumentException.class,
+                   () -> grille9x9Test.getValue(0, ligne));
+        }
+        /**
+         * methode qui teste la fonction GetValue
+         * lorsque la colonne est hors borne.
+         * grille 16X16
+         */
+        @Test
+        public final void testGetValue5() {
+           final int col = 19;
+           Assertions.assertThrows(IllegalArgumentException.class,
+                   () -> grille16x16Test.getValue(col, 1));
+        }
+        /**
+         * methode qui teste la fonction GetValue
+         * lorsque la ligne est hors borne.
+         * grille 16X16
+         */
+        @Test
+        public final void testGetValue6() {
+           final int ligne = 34;
+           Assertions.assertThrows(IllegalArgumentException.class,
+                   () -> grille16x16Test.getValue(0, ligne));
+        }
+        /**
+         * methode qui teste Complete()
+         * le cas où la grille 9X9 n'est pas complète.
+         */
+        @Test
+        public final void testComplete1() {
             assertEquals(false, grille9x9Test.complete());
         }
         /**
-         * methode qui teste Complete() cas où la grille est pas complète.
+         * methode qui teste Complete()
+         * le cas où la grille 9X9 est complète.
          */
         @Test
         public final void testComplete2() {
             assertEquals(true, grille9x9TestRemplie.complete());
         }
         /**
-         * methode qui teste Possible().
-         * pour voir si une valeur existe dans la ligne,
-         * cas où ce n'est pas possible.
+         * methode qui teste Complete()
+         * le cas où la grille 16X16 n'est pas complète.
          */
         @Test
-        public final void testPossible() {
+        public final void testComplete3() {
+            assertEquals(false, grille16x16Test.complete());
+        }
+        /**
+         * methode qui teste Complete()
+         * le cas où la grille 16X16 est complète.
+         */
+        @Test
+        public final void testComplete4() {
+            assertEquals(true, grille16x16TestRemplie.complete());
+        }
+        /**
+         * methode qui teste verifGetValue()
+         * le cas où une coordonnée de la grille 9X9 est hors borne.
+         */
+        @Test
+        public final void testVerifGetValue1() {
+            final int value = -3;
+            assertEquals(false, grille9x9Test.verifGetValue(value));
+        }
+        /**
+         * methode qui teste verifGetValue()
+         * le cas où une coordonnée de la grille 9X9 est dans la borne.
+         */
+        @Test
+        public final void testVerifGetValue2() {
+            final int value = 3;
+            assertEquals(true, grille9x9Test.verifGetValue(value));
+        }
+        /**
+         * methode qui teste verifGetValue()
+         * le cas où une coordonnée de la grille 16X16 est hors borne.
+         */
+        @Test
+        public final void testVerifGetValue3() {
+            final int value = -3;
+            assertEquals(false, grille16x16Test.verifGetValue(value));
+        }
+        /**
+         * methode qui teste verifGetValue()
+         * le cas où une coordonnée de la grille 16X16 est dans la borne.
+         */
+        @Test
+        public final void testVerifGetValue4() {
+            final int value = 4;
+            assertEquals(true, grille16x16Test.verifGetValue(value));
+        }
+        /**
+         * methode qui teste lignePossible().
+         * pour voir si une valeur existe dans la ligne
+         * grille 9X9
+         */
+        @Test
+        public final void testLignePossible() {
+            assertEquals(false, grille9x9Test.lignePossible(0, '6'));
+         }
+        /**
+         * methode qui teste lignePossible().
+         * pour voir si une valeur n'existe pas dans la ligne
+         * grille 9X9
+         */
+        @Test
+        public final void testLignePossible1() {
+            assertEquals(true, grille9x9Test.lignePossible(0, '9'));
+         }
+        /**
+         * methode qui teste lignePossible().
+         * pour voir si une valeur n'existe pas dans la ligne
+         * grille 16X16
+         */
+        @Test
+        public final void testLignePossible2() {
+            assertEquals(true, grille16x16Test.lignePossible(0, '6'));
+         }
+        /**
+         * methode qui teste lignePossible().
+         * pour voir si une valeur existe dans la ligne
+         * grille 16X16
+         */
+        @Test
+        public final void testLignePossible3() {
+            assertEquals(false, grille16x16Test.lignePossible(0, '2'));
+         }
+        /**
+         * methode qui teste lignePossible().
+         * pour voir si une valeur donnée est impossible dans la ligne
+         * grille 9X9
+         */
+        @Test
+        public final void testLignePossible4() {
+            assertEquals(false, grille9x9Test.lignePossible(0, 'z'));
+         }
+        /**
+         * methode qui teste lignePossible().
+         * pour voir si une valeur donnée est impossible dans la ligne
+         * grille 16X16
+         */
+        @Test
+        public final void testLignePossible5() {
+            assertEquals(false, grille16x16Test.lignePossible(0, 'z'));
+         }
+        /**
+         * methode qui teste colonnePossible().
+         * pour voir si une valeur n'existe pas dans la colonne
+         * grille 9X9
+         */
+        @Test
+        public final void testColonnePossible() {
+            assertEquals(false, grille9x9Test.colonnePossible(0, '6'));
+         }
+        /**
+         * methode qui teste colonnePossible().
+         * pour voir si une valeur existe dans la colonne
+         * grille 9X9
+         */
+        @Test
+        public final void testColonnePossible1() {
+            assertEquals(true, grille9x9Test.colonnePossible(0, '1'));
+         }
+        /**
+         * methode qui teste colonnePossible().
+         * pour voir si une valeur n'existe pas dans la colonne
+         * grille 16X16
+         */
+        @Test
+        public final void testColonnePossible2() {
+            assertEquals(true, grille16x16Test.colonnePossible(0, 'E'));
+         }
+        /**
+         * methode qui teste colonnePossible().
+         * pour voir si une valeur existe dans la colonne
+         * grille 16X16
+         */
+        @Test
+        public final void testColonnePossible3() {
+            assertEquals(false, grille16x16Test.colonnePossible(0, '9'));
+         }
+        /**
+         * methode qui teste colonnePossible().
+         * pour voir si une valeur donnée est impossible dans la colonne
+         * grille 9X9
+         */
+        @Test
+        public final void testColonnePossible4() {
+            assertEquals(false, grille9x9Test.colonnePossible(0, 'z'));
+         }
+        /**
+         * methode qui teste colonnePossible().
+         * pour voir si une valeur donnée est impossible dans la colonne
+         * grille 16X16
+         */
+        @Test
+        public final void testColonnePossible5() {
+            assertEquals(false, grille16x16Test.colonnePossible(0, 'z'));
+         }
+        /**
+         * methode qui teste carrePossible().
+         * pour voir si une valeur donnée est possible pour le carre
+         * grille 9X9
+         */
+        @Test
+        public final void testCarrePossible1() {
+            final int ligneP = 5;
+            final int colP = 0;
+            assertEquals(true, grille9x9Test.carrePossible(ligneP, colP, '1'));
+         }
+        /**
+         * methode qui teste carrePossible().
+         * pour voir si une valeur donnée est impossible pour le carre
+         * grille 9X9
+         */
+        @Test
+        public final void testCarrePossible2() {
+            final int colP = 0;
+            final int ligneP = 5;
+            assertEquals(false, grille9x9Test.carrePossible(ligneP, colP, '8'));
+         }
+        /**
+         * methode qui teste carrePossible().
+         * pour voir si une valeur donnée est possible pour le carre
+         * grille 16X16
+         */
+        @Test
+        public final void testCarrePossible3() {
+            final int ligneP = 5;
+            final int colP = 0;
+            assertEquals(true, grille16x16Test.carrePossible(
+                    ligneP, colP, '4'));
+         }
+        /**
+         * methode qui teste carrePossible().
+         * pour voir si une valeur donnée est impossible pour le carre
+         * grille 16X16
+         */
+        @Test
+        public final void testCarrePossible4() {
+            final int colP = 0;
+            final int ligneP = 5;
+            assertEquals(false, grille16x16Test.carrePossible(
+                    ligneP, colP, '7'));
+         }
+        /**
+         * methode qui teste carrePossible().
+         * pour voir si un caractère est impossible pour le carre
+         * grille 9X9
+         */
+        @Test
+        public final void testCarrePossible5() {
+            final int colP = 0;
+            final int ligneP = 5;
+            assertEquals(false, grille9x9Test.carrePossible(ligneP, colP, 'z'));
+         }
+        /**
+         * methode qui teste carrePossible().
+         * pour voir si un caractère est impossible pour le carre
+         * grille 16X16
+         */
+        @Test
+        public final void testCarrePossible6() {
+            final int colP = 0;
+            final int ligneP = 5;
+            assertEquals(false, grille16x16Test.carrePossible(
+                    ligneP, colP, 'z'));
+         }
+        /**
+         * methode qui teste carrePossible().
+         * pour voir si la ligne est hors borne
+         * grille 9X9
+         */
+        @Test
+        public final void testCarrePossible7() {
+            final int ligne1 = 88;
+            Assertions.assertThrows(IllegalArgumentException.class,
+                    () -> grille9x9Test.possible(ligne1, 0, '2'));
+         }
+        /**
+         * methode qui teste carrePossible().
+         * pour voir si la ligne est hors borne
+         * grille 16X16
+         */
+        @Test
+        public final void testCarrePossible8() {
+            final int ligne1 = 88;
+            Assertions.assertThrows(IllegalArgumentException.class,
+                    () -> grille16x16Test.carrePossible(ligne1, 0, 'A'));
+        }
+        /**
+         * methode qui teste carrePossible().
+         * pour voir si la colonne est hors borne
+         * grille 9X9
+         */
+        @Test
+        public final void testCarrePossible9() {
+            final int col1 = 88;
+            //assertEquals(false, grille9x9Test.carrePossible(0, col1, '2'));
+            Assertions.assertThrows(IllegalArgumentException.class,
+                    () -> grille9x9Test.carrePossible(0, col1, '2'));
+         }
+        /**
+         * methode qui teste carrePossible().
+         * pour voir si la colonne est hors borne
+         * grille 16X16
+         */
+        @Test
+        public final void testCarrePossible10() {
+            final int col1 = 88;
+            //assertEquals(false, grille16x16Test.carrePossible(0, col1, 'A'));
+            Assertions.assertThrows(IllegalArgumentException.class,
+                    () -> grille16x16Test.carrePossible(0, col1, 'A'));
+         }
+        /**
+         * methode qui teste Possible().
+         * pour voir si une valeur est impossible,
+         * grille 9X9
+         */
+        @Test
+        public final void testPossible1() {
             assertEquals(false, grille9x9Test.possible(0, 1, '6'));
          }
         /**
          * methode qui teste Possible().
-         * pour voir si une valeur existe dans la ligne,
-         * cas où ce n'est pas possible.
+         * pour voir si une valeur est impossible,
+         * grille 16X16
          */
         @Test
-        public final void testLignePossible() {
-            assertEquals(true, grille9x9Test.lignePossible(0, '6'));
+        public final void testPossible2() {
+            assertEquals(false, grille16x16Test.possible(0, 1, '6'));
          }
         /**
          * methode qui teste Possible().
-         * pour voir si une valeur existe dans la ligne,
-         * cas où ce n'est pas possible.
+         * pour voir si une valeur est possible
+         * grille 9X9
          */
         @Test
-        public final void testColonnePossible() {
-            assertEquals(true, grille9x9Test.colonnePossible(0, '6'));
-         }
-        /**
-         * methode qui teste Possible().
-         * pour voir si une valeur existe dans la ligne,
-         * cas où ce n'est pas possible.
-         */
-        @Test
-        public final void testCarrePossible() {
-            assertEquals(true, grille9x9Test.carrePossible(LIGNEP, COLP, '8'));
-         }
-        /**
-         * methode qui teste Possible().
-         * pour voir si une valeur existe dans la ligne, cas où c'est possible.
-         */
-        @Test
-        public final void testPossibleBis() {
+        public final void testPossible3() {
             assertEquals(true, grille9x9Test.possible(0, 0, '9'));
          }
         /**
          * methode qui teste Possible().
-         * pour voir si une valeur est inserable dans la grille.
-         */
-        @Test
-        public final void testPossible2() {
-            assertEquals(true, grille9x9Test.possible(0, 2, '2'));
-       }
-        /**
-         * methode qui teste Possible() pour voir si la Case est non vide.
-         */
-        @Test
-        public final void testPossible3() {
-          assertEquals(false, grille9x9Test.possible(0, 1, 'a'));
-        }
-        /**
-         * methode qui teste Possible() pour voir si le caractere est autorise.
+         * pour voir si une valeur est possible
+         * grille 9X9
          */
         @Test
         public final void testPossible4() {
+            assertEquals(false, grille16x16Test.possible(0, 0, '9'));
+         }
+        /**
+         * methode qui teste Possible()
+         * pour voir si le caractere est non autorise.
+         * grille 9X9
+         */
+        @Test
+        public final void testPossible5() {
            Assertions.assertThrows(IllegalArgumentException.class,
                    () -> grille9x9Test.possible(0, 0, 'z'));
         }
         /**
-         * methode qui teste Possible() pour voir si c'est hors grille.
+         * methode qui teste Possible()
+         * pour voir si le caractere est non autorise.
+         * grille 16X16
          */
         @Test
-        public final void testPossible5() {
+        public final void testPossible6() {
+           Assertions.assertThrows(IllegalArgumentException.class,
+                   () -> grille16x16Test.possible(0, 0, 'z'));
+        }
+        /**
+         * methode qui teste Possible()
+         * pour voir si la colonne est hors borne.
+         * grille 9X9
+         */
+        @Test
+        public final void testPossible7() {
+           final int col1 = 88;
           Assertions.assertThrows(IllegalArgumentException.class,
-                  () -> grille9x9Test.possible(LIGNE, COL1, 'a'));
+                  () -> grille9x9Test.possible(0, col1, '9'));
+        }
+        /**
+         * methode qui teste Possible()
+         * pour voir si la colonne est hors borne.
+         * grille 16X16
+         */
+        @Test
+        public final void testPossible8() {
+           final int col1 = 88;
+          Assertions.assertThrows(IllegalArgumentException.class,
+                  () -> grille16x16Test.possible(0, col1, '9'));
+        }
+        /**
+         * methode qui teste Possible()
+         * pour voir si la ligne est hors borne.
+         * * grille 9X9
+         */
+        @Test
+        public final void testPossible9() {
+            final int ligne1 = 88;
+          Assertions.assertThrows(IllegalArgumentException.class,
+                  () -> grille9x9Test.possible(ligne1, 0, '9'));
+        }
+        /**
+         * methode qui teste Possible()
+         * pour voir si la ligne est hors borne.
+         * * grille 16X16
+         */
+        @Test
+        public final void testPossible10() {
+            final int ligne1 = 88;
+          Assertions.assertThrows(IllegalArgumentException.class,
+                  () -> grille16x16Test.possible(ligne1, 0, '9'));
+        }
+        /**
+         * methode qui teste Possible()
+         * pour voir si les ligne et colonne sont hors bornes.
+         * grille 9X9
+         */
+        @Test
+        public final void testPossible11() {
+            final int ligne1 = 88;
+            final int col1 = 88;
+          Assertions.assertThrows(IllegalArgumentException.class,
+                  () -> grille9x9Test.possible(ligne1, col1, '9'));
+        }
+        /**
+         * methode qui teste Possible()
+         * pour voir si les ligne et colonne sont hors bornes.
+         * grille 16X16
+         */
+        @Test
+        public final void testPossible12() {
+            final int ligne1 = 88;
+            final int col1 = 88;
+          Assertions.assertThrows(IllegalArgumentException.class,
+                  () -> grille16x16Test.possible(ligne1, col1, '9'));
+        }
+        /**
+         * methode qui teste Possible().
+         * pour voir si une valeur est possible.
+         * grille 9X9
+         */
+        @Test
+        public final void testPossible13() {
+            final int ligne = 3;
+              assertEquals(false, grille9x9Test.possible(ligne, 2, '6'));
+        }
+        /**
+         * methode qui teste Possible().
+         * pour voir si une valeur est possible.
+         * grille 16X16
+         */
+        @Test
+        public final void testPossible14() {
+            final int ligne = 3;
+              assertEquals(false, grille16x16Test.possible(ligne, 2, '6'));
+        }
+        /**
+         * methode qui teste Possible().
+         * pour voir si une valeur est possible.
+         * grille 9X9
+         */
+        @Test
+        public final void testPossible15() {
+            final int ligne = 1;
+              assertEquals(false, grille9x9Test.possible(ligne, 1, '1'));
         }
 }
