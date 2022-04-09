@@ -156,8 +156,9 @@ public class GrilleImpl implements Grille {
                         return false;
                     }
             }
-        } else
+        } else {
             return false;
+        }
         return true;
     }
     /**
@@ -173,8 +174,9 @@ public class GrilleImpl implements Grille {
                         return false;
                     }
             }
-        } else
+        } else {
             return false;
+        }
         return true;
     }
     /**

@@ -397,7 +397,7 @@ public class TestGrilleImpl {
          */
         @Test
         public final void testLignePossible4() {
-            assertEquals(false, grille9x9Test.lignePossible(0, 'z'));
+            assertEquals(false, grille9x9Test.lignePossible(0, 'Z'));
          }
         /**
          * methode qui teste lignePossible().
@@ -406,7 +406,7 @@ public class TestGrilleImpl {
          */
         @Test
         public final void testLignePossible5() {
-            assertEquals(false, grille16x16Test.lignePossible(0, 'z'));
+            assertEquals(false, grille16x16Test.lignePossible(0, 'Z'));
          }
         /**
          * methode qui teste colonnePossible().
@@ -730,5 +730,15 @@ public class TestGrilleImpl {
         public final void testPossible15() {
             final int ligne = 1;
               assertEquals(false, grille9x9Test.possible(ligne, 1, '1'));
+        }
+        /**
+         * methode qui teste Possible().
+         * pour voir si une valeur est possible.
+         * grille 9X9
+         */
+        @Test
+        public final void testPossible16() {
+            final int ligne = 5;
+              assertEquals(false, grille9x9Test.possible(ligne, 1, '3'));
         }
 }
