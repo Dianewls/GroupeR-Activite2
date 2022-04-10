@@ -1,4 +1,5 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.*;
 
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -192,6 +193,8 @@ public class TestGrilleImpl {
          */
         @Test
         public final void testPossible2() {
+            assertEquals(true, grille9x9Test.lignePossible(0, '8'));
+            assertEquals(true, grille9x9Test.lignePossible(1, '7'));
             assertEquals(true, grille9x9Test.possible(0, 2, '2'));
        }
         /**
