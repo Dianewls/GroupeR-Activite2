@@ -3,21 +3,17 @@
  */
 public class GrilleImpl implements Grille {
     /**
-     * grille est la grille de type tableau à deux dimensions.
+     * grille est la grille à deux dimensions.
      */
     private char[][] grille;
     /**
-     * longueur répresente la longueur.
+     * CARRESIZE9X9 taille du carre d'une grille 9X9.
      */
-//    private int longueur;
-//    /**
-//     * largeur répresente la largeur.
-//     */
-//    private int largeur;
-//    /**
-//     * CARRESIZE taille du carre d'une grille 9X9.
-//     */
-    private static final int CARRESIZE = 3;
+    private static final int CARRESIZE9X9 = 3;
+    /**
+     * CARRESIZE16X16 taille du carre d'une grille 16X16.
+     */
+    private static final int CARRESIZE16X16 = 4;
     /**
      * GRILLE9X9SIZE represente la taille du tableau 9*9.
      */
@@ -31,6 +27,12 @@ public class GrilleImpl implements Grille {
      */
     private static final char[] CHARPOSSIBLE9x9 = new char[]
             {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
+   /**
+    * Caractere possible a mettre dans la grille 16X16.
+    */
+   private static final char[] CHARPOSSIBLE16X16 = new char[]
+           {'1', '2', '3', '4', '5', '6', '7', '8',
+                   '9', 'A', 'B', 'C', 'D', 'E', 'F'};
     /**
      * Caractere possible a mettre dans la grille 16X16.
      */
@@ -50,16 +52,15 @@ public class GrilleImpl implements Grille {
         }
     }
     /**
-     * @return largeur/hauteur de la grille
+     * @return largeur/hauteur (taille) de la grille
      */
     @Override
     public final int getDimension() {
         return grille.length;
     }
     /**
-     * Verify si the character to add is authorized.
      * @param c caractere a verifier
-     * @return true or false
+     * @return true si ok ou false si non
      */
     public final boolean verifChar(final char c) {
         if (this.grille.length == GRILLE9X9SIZE) {
@@ -74,11 +75,20 @@ public class GrilleImpl implements Grille {
                     return true;
                     }
                 }
+        }else if(c=='@'){
+            return true;
+        }
+        if (this.grille.length == GRILLE16X16SIZE) {
+             for (char s : CHARPOSSIBLE16X16) {
+                if (s == c) {
+                    return true;
+                    }
+                }
         }
         return false;
     }
     /**
-     * Affecte une valeur dans la grille.
+     * Affecte une valeur a une position dans la grille.
      * @param x       position x dans la grille
      * @param y       position y dans la grille
      * @param value   valeur a mettre dans la case
@@ -89,13 +99,12 @@ public class GrilleImpl implements Grille {
      *        autres valeurs de la grille
      * @throw IllegalArgumentException
      *        si value n'est pas un caractere autorise
-     *        ('1',...,'9')
+     *        ('1',...,'9') pour 9X9 et ('1',...,'F') pour 16X16
      */
     @Override
     public final void setValue(final int x, final int y, final char value)
             throws IllegalArgumentException {
-        if (x < 0 || x > this.getDimension()
-                || y < 0 || y > this.getDimension()) {
+        if (!verifGetValue(x) || !verifGetValue(y)) {
             throw new IllegalArgumentException("x et/ou y "
                     + "est(sont) hors des dimensions");
         } else {
@@ -106,24 +115,34 @@ public class GrilleImpl implements Grille {
         grille[x][y] = value;
     }
     /**
+     * verifie si une coordonnée est dans la borne ou pas.
+     * @param x       coodonnée x dans la grille
+     * @return true si x est dans la borne (0...grille.length ou false si non
+     */
+    public final boolean verifGetValue(final int x) {
+        if (x < 0 || x >= this.getDimension()) {
+            return false;
+        }
+        return true;
+    }
+    /**
      * Recupere une valeur de la grille.
      * @param x      position x dans la grille
      * @param y      position y dans la grille
      * @return valeur dans la case x,y
-     * @throw IllegalArgumentException si x ou y sont hors bornes (0-8)
+     * @throw IllegalArgumentException si x ou y sont hors bornes
      */
     @Override
     public final char getValue(final int x, final int y) {
-        if (x < 0 || x > this.getDimension()
-                || y < 0 || y > this.getDimension()) {
+        if (!verifGetValue(x) || !verifGetValue(y)) {
             throw new IllegalArgumentException("x ou y is out of matrice");
-        } else {
-            return this.grille[x][y];
-        }
+            } else {
+                return this.grille[x][y];
+                }
     }
     /**
      * Test si une grille est terminee.
-     * @return true si la grille est complete
+     * @return true si la grille est complete sinon false
      */
     @Override
     public final boolean complete() {
@@ -140,48 +159,64 @@ public class GrilleImpl implements Grille {
      * Tester si une valeur est possible pour une ligne donnee.
      * @param ligne numero de la ligne
      * @param value valeur qu'on veut ajouter
-     * @return true si la valeur est possible pour la ligne
+     * @return true si la valeur est possible pour la ligne et false sinon
      */
     public final boolean lignePossible(final int ligne, final char value) {
-        for (int i = 0; i < grille.length; i++) {
-            if (getValue(ligne, i) == value  && verifChar(value)) {
-                return true;
+        if (verifChar(value)) {
+            for (int i = 0; i < grille.length; i++) {
+                if (getValue(ligne, i) == value) {
+                        return false;
+                    }
             }
+        } else {
+            return false;
         }
-        return false;
+        return true;
     }
     /**
      * Tester si une valeur est possible par colonne.
      * @param col numero de la colonne
      * @param value valeur qu'on veut ajouter
-     * @return true si la valeur est possible pour la colonne col
+     * @return true si la valeur est possible pour la colonne col et false sinon
      */
     public final boolean colonnePossible(final int col, final char value) {
-        for (int i = 0; i < grille.length; i++) {
-            if (getValue(i, col) == value && verifChar(value)) {
-                return true;
+        if (verifChar(value)) {
+            for (int i = 0; i < grille.length; i++) {
+                if (getValue(i, col) == value) {
+                        return false;
+                    }
             }
+        } else {
+            return false;
         }
-        return false;
+        return true;
     }
     /**
-     * verifier si valeur est possible dans 3*3 box.
+     *verifier si valeur est possible dans 3*3 box.
      *@param value valeur qu'on ajoute
      *@param row numero de la ligne
      *@param col numero de la colonne
-     *
      *@return true si elle est possible,  sinon false
      */
     public final boolean carrePossible(final int row, final int col,
             final char value) {
-        int r = row - row % CARRESIZE;
-        int c = col - col % CARRESIZE;
-        for (int i = r; i < r + CARRESIZE; i++) {
-            for (int j = c; j < c + CARRESIZE; j++) {
-                if (grille[i][j] == value && verifChar(value)) {
-                    return true;
+        int carresize = 0;
+        if (verifChar(value)) {
+            if (grille.length == CARRESIZE9X9 * CARRESIZE9X9) {
+                carresize = CARRESIZE9X9;
+            } else {
+                carresize = CARRESIZE16X16;
+            }
+            int r = row - row % carresize;
+            int c = col - col % carresize;
+            for (int i = r; i < r + carresize; i++) {
+                for (int j = c; j < c + carresize; j++) {
+                    if (getValue(i, j) == value) {
+                        return false;
+                    }
                 }
             }
+            return true;
         }
         return false;
     }
@@ -191,76 +226,94 @@ public class GrilleImpl implements Grille {
      * @param x     position x dans la grille
      * @param y     position y dans la grille
      * @param value valeur a mettre dans la case
-     * @throw IllegalArgumentException si x ou y sont hors bornes (0-8)
+     * @throw IllegalArgumentException si x ou y sont hors bornes
      * @throw IllegalArgumentException si value n'est pas un caractere autorise
-     *        ('1',...,'9',..)
+     * *@return true si la valeur est possible et false si non
      */
     @Override
     public final boolean possible(final int x, final int y, final char value) {
-        if ((x >= 0 && x < grille.length) && (y >= 0 && y < grille.length)) {
-            if (getValue(x, y) == EMPTY) {
+        if (!verifGetValue(x) && !verifGetValue(y)) {
+            throw new IllegalArgumentException("x ou y sont hors bornes");
+            } else if (getValue(x, y) == EMPTY) {
                 if (!verifChar(value)) {
                     throw new IllegalArgumentException("valeur non autorisee");
-                }
-            } else {
-                return false;
-            }
-        } else {
-            throw new IllegalArgumentException("x ou y sont hors bornes");
-        }
-        return !lignePossible(x, value)
-                &&  !colonnePossible(y, value)
-                &&  !carrePossible(x, y, value);
+                    }
+                } else {
+                    return false;
+                    }
+        return lignePossible(x, value)
+                && colonnePossible(y, value)
+                && carrePossible(x, y, value);
     }
+    /**
+     * Cette fonction permet de resoudre une grille.
+     * @return true si la grille est resolue et false sinon
+     */
+//    public final boolean solve() {
+//        for (int row = 0; row < grille.length; row++) {
+//            for (int col = 0; col < grille.length; col++) {
+//                if (grille[row][col] == '@') {
+//                   for (char c = '1'; c <= (char) GRILLE16X16SIZE; c++) {
+//                       if (possible(row, col, c)) {
+//                            grille[row][col] = c;
+//                            if (solve()) { //recursivité
+//                                return true;
+//                            }
+//                       }
+//                  grille[row][col] = '@';
+//                }
+//              return false;
+//                }
+//            }
+//        }
+//        return true;
+//    }
+//    public final boolean solve() {
+//        for (int row = 0; row < grille.length; row++) {
+//            for (int col = 0; col < grille.length; col++) {
+//                // chercher des cases vides
+//                if (grille[row][col] == EMPTY) {
+//                    // on essaye les valeurs possibles
+//                    for (char value = '1'; value <= (char) GRILLE16X16SIZE; value++) {
+//                        if (possible(row, col, value)) {
+//                            // Value respect les contraintes de sudoku
+//                            grille[row][col] = value;
+//                            if (solve()) { // Fonction rescursive
+//                                return true;
+//                            } else {
+//                                grille[row][col] = EMPTY;
+//                            }
+//                        }
+//                    }
+//                    return false;
+//                }
+//            }
+//        }
+//        return true; // sudoku solved
+//    }
     /**
      * Cette fonction permet de resoudre une grille.
      * @return true si la grille est resolue et false sinon
      */
     public final boolean solve() {
-        for (int row = 0; row < grille.length; row++) {
-            for (int col = 0; col < grille.length; col++) {
-                if (grille[row][col] == EMPTY) {
-                   for (char c = '1'; c <= (char) GRILLE9X9SIZE; c++) {
-                       if (possible(row, col, c)) {
-                            grille[row][col] = c;
-                            if (solve()) { //recursivité
+        for (int ligne = 0; ligne < grille.length; ligne++) {
+            for (int colonne = 0; colonne < grille.length; colonne++) {
+                if (grille[ligne][ colonne] == EMPTY) {
+                    for (int i = 0; i < GRILLE9X9SIZE; i++) {
+                        if (possible(ligne, colonne, CHARPOSSIBLE9x9[i])) {
+                            grille[ligne][colonne] = CHARPOSSIBLE9x9[i];
+                            if (solve()) {
                                 return true;
-                            } else {
-                                grille[row][col] = EMPTY;
                             }
                         }
+                        grille[ligne][colonne] =EMPTY;
                     }
                     return false;
                 }
             }
         }
-        return false;
-        
+        return true;
     }
-    /**
-     * Cette fonction permet de resoudre une grille.
-     * @return true si la grille est resolue et false sinon
-     */
-//    public final boolean solve2() {
-//      for (int ligne = 0; ligne < grille.getDimension(); ligne++) {
-//        for (int colonne = 0; colonne < grille.getDimension(); colonne++) {
-//            if (grille.getValue(ligne, colonne) == grille.EMPTY) {
-//                for (int i = 0; i < possible.length; i++) {
-//                    if (grille.possible(ligne, colonne, possible[i])) {
-//                        grille.setValue(ligne, colonne, possible[i]);
-//                        if (solve()) {
-//                            return true;
-//                        }
-//                    }
-//                    grille.setValue(ligne, colonne, grille.EMPTY);
-//                }
-//                return false;
-//
-//                }
-//          }
-//       }
-//    }
-    
     public  void affiche() {
         for (int l=0; l<9; l++) {
           for (int c=0; c<9; c++) {
