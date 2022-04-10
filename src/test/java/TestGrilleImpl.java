@@ -762,5 +762,6 @@ public class TestGrilleImpl {
            //assertEquals(true, grille16x16Test.solve());
            assertEquals(true, grille16x16TestRemplie.complete());
        }
+       
 
 }
