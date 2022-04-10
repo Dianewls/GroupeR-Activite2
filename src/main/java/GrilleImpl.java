@@ -57,7 +57,7 @@ public class GrilleImpl implements Grille {
         return grille.length;
     }
     /**
-     * Verify if the character to add is authorized.
+     * Verify si the character to add is authorized.
      * @param c caractere a verifier
      * @return true or false
      */
