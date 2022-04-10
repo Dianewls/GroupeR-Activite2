@@ -752,7 +752,6 @@ public class TestGrilleImpl {
            assertEquals(true, grille9x9TestRemplie.solve());
            assertEquals(true, grille9x9TestRemplie.complete());
        }
-
        /**
         *  Test solveur pour la grille 16X16
         */
