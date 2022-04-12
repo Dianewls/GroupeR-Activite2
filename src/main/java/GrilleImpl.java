@@ -25,22 +25,25 @@ public class GrilleImpl implements Grille {
     /**
      * Caractere possible a mettre dans la grille 9X9.
      */
-    private static final char[] CHARPOSSIBLE9X9 = new char[] { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+    private static final char[] CHARPOSSIBLE9X9 = new char[]
+            {'1', '2', '3', '4', '5', '6', '7', '8', '9' };
     /**
      * Caractere possible a mettre dans la grille 16X16.
      */
-    private static final char[] CHARPOSSIBLE16X16 = new char[] { '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B',
+    private static final char[] CHARPOSSIBLE16X16 = new char[]
+            {'1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B',
             'C', 'D', 'E', 'F', 'G' };
     /**
      * Constructeur.
-     * 
      * @param unegrille est une grille de type tableau à deux dimensions
      */
     public GrilleImpl(final char[][] unegrille) {
-        if (unegrille.length == GRILLE9X9SIZE || unegrille.length == GRILLE16X16SIZE) {
+        if (unegrille.length == GRILLE9X9SIZE
+                || unegrille.length == GRILLE16X16SIZE) {
             this.grille = unegrille.clone();
         } else {
-            throw new IllegalArgumentException("Le tableau doit " + "être de dimension 9x9 ou 16x16");
+            throw new IllegalArgumentException("Le tableau doit "
+        + "être de dimension 9x9 ou 16x16");
         }
     }
 
@@ -54,7 +57,6 @@ public class GrilleImpl implements Grille {
 
     /**
      * Verify if the character to add is authorized dans grille 9X9 ou 16X16.
-     * 
      * @param c caractere a verifier
      * @return true si ok ou false si non
      */
@@ -78,7 +80,6 @@ public class GrilleImpl implements Grille {
 
     /**
      * Affecte une valeur a une position dans la grille.
-     * 
      * @param x     position x dans la grille
      * @param y     position y dans la grille
      * @param value valeur a mettre dans la case
@@ -89,9 +90,11 @@ public class GrilleImpl implements Grille {
      *        ('1',...,'9') pour 9X9 et ('1',...,'F') pour 16X16
      */
     @Override
-    public final void setValue(final int x, final int y, final char value) throws IllegalArgumentException {
+    public final void setValue(final int x, final int y, final char value)
+                    throws IllegalArgumentException {
         if (!verifGetValue(x) || !verifGetValue(y)) {
-            throw new IllegalArgumentException("x et/ou y " + "est(sont) hors des dimensions");
+            throw new IllegalArgumentException("x et/ou y "
+        + "est(sont) hors des dimensions");
         } else {
             if (!verifChar(value)) {
                 throw new IllegalArgumentException("Caractere non autorise");
@@ -102,7 +105,6 @@ public class GrilleImpl implements Grille {
 
     /**
      * verifie si une coordonnée est dans la borne ou pas.
-     * 
      * @param x coodonnée x dans la grille
      * @return true si x est dans la borne (0...grille.length ou false si non
      */
@@ -115,7 +117,6 @@ public class GrilleImpl implements Grille {
 
     /**
      * Recupere une valeur de la grille.
-     * 
      * @param x position x dans la grille
      * @param y position y dans la grille
      * @return valeur dans la case x,y
@@ -132,7 +133,6 @@ public class GrilleImpl implements Grille {
 
     /**
      * Test si une grille est terminee.
-     * 
      * @return true si la grille est complete sinon false
      */
     @Override
@@ -149,7 +149,6 @@ public class GrilleImpl implements Grille {
 
     /**
      * Tester si une valeur est possible pour une ligne donnee.
-     * 
      * @param ligne numero de la ligne
      * @param value valeur qu'on veut ajouter
      * @return true si la valeur est possible pour la ligne et false sinon
@@ -169,7 +168,6 @@ public class GrilleImpl implements Grille {
 
     /**
      * Tester si une valeur est possible par colonne.
-     * 
      * @param col   numero de la colonne
      * @param value valeur qu'on veut ajouter
      * @return true si la valeur est possible pour la colonne col et false sinon
@@ -189,13 +187,13 @@ public class GrilleImpl implements Grille {
 
     /**
      * verifier si valeur est possible dans 3*3 box.
-     * 
      * @param value valeur qu'on ajoute
      * @param row   numero de la ligne
      * @param col   numero de la colonne
      * @return true si la valeur est possible dans le carre 3X3 et false si non
      */
-    public final boolean carrePossible(final int row, final int col, final char value) {
+    public final boolean carrePossible(
+            final int row, final int col, final char value) {
         int carresize = 0;
         if (verifChar(value)) {
             if (grille.length == GRILLE9X9SIZE) {
@@ -218,9 +216,9 @@ public class GrilleImpl implements Grille {
     }
 
     /**
-     * Test si une valeur est possible dans la grille. cela par rapport a ce qu'elle
+     * Test si une valeur est possible dans la grille.
+     * cela par rapport a ce qu'elle
      * contient deja
-     * 
      * @param x     position x dans la grille
      * @param y     position y dans la grille
      * @param value valeur a mettre dans la case
@@ -239,54 +237,10 @@ public class GrilleImpl implements Grille {
         } else {
             return false;
         }
-        return lignePossible(x, value) && colonnePossible(y, value) && carrePossible(x, y, value);
+        return lignePossible(x, value)
+                && colonnePossible(y, value)
+                && carrePossible(x, y, value);
     }
-    /**
-     * Cette fonction permet de resoudre une grille.
-     * @return true si la grille est resolue et false sinon
-     */
-//    public final boolean solve() {
-//        for (int row = 0; row < grille.length; row++) {
-//            for (int col = 0; col < grille.length; col++) {
-//                if (grille[row][col] == '@') {
-//                   for (char c = '1'; c <= (char) GRILLE16X16SIZE; c++) {
-//                       if (possible(row, col, c)) {
-//                            grille[row][col] = c;
-//                            if (solve()) { //recursivité
-//                                return true;
-//                            }
-//                       }
-//                  grille[row][col] = '@';
-//                }
-//              return false;
-//                }
-//            }
-//        }
-//        return true;
-//    }
-//    public final boolean solve() {
-//        for (int row = 0; row < grille.length; row++) {
-//            for (int col = 0; col < grille.length; col++) {
-//                // chercher des cases vides
-//                if (grille[row][col] == EMPTY) {
-//                    // on essaye les valeurs possibles
-//                    for (char value = '1'; value <= (char) GRILLE16X16SIZE; value++) {
-//                        if (possible(row, col, value)) {
-//                            // Value respect les contraintes de sudoku
-//                            grille[row][col] = value;
-//                            if (solve()) { // Fonction rescursive
-//                                return true;
-//                            } else {
-//                                grille[row][col] = EMPTY;
-//                            }
-//                        }
-//                    }
-//                    return false;
-//                }
-//            }
-//        }
-//        return true; // sudoku solved
-//    }
     /**
      * Cette fonction permet de resoudre une grille.
      * @return true si la grille est resolue et false sinon
@@ -317,8 +271,10 @@ public class GrilleImpl implements Grille {
         }
         return true;
     }
-    
-    public  void affiche() {
+    /**
+     * Cette fonction permet d'afficher une grille.
+     */
+    public final void affiche() {
         for (int l = 0; l < getDimension(); l++) {
             for (int c = 0; c < getDimension(); c++) {
                 System.out.print(" " + grille[l][c]);
@@ -328,5 +284,3 @@ public class GrilleImpl implements Grille {
         System.out.println();
       }
 }
-
-    
