@@ -1,3 +1,3 @@
 /**
- * Activité2 test
+ * Activité2
  */
