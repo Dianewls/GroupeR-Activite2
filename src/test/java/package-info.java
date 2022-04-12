@@ -1,3 +1,0 @@
-/**
- * Activité2 test
- */
