@@ -748,7 +748,7 @@ public class TestGrilleImpl {
        public final void testSolve9X9() {
            GrilleImpl grille9x9 = new GrilleImpl(grille9x9Aremplir);
            GrilleImpl grille9x9TestRemplie =new GrilleImpl(grille9x9Remplie);
-           assertEquals(true, grille9x9.solve());
+           //assertEquals(true, grille9x9.solve());
            assertEquals(true, grille9x9TestRemplie.solve());
            assertEquals(true, grille9x9TestRemplie.complete());
        }
@@ -759,7 +759,7 @@ public class TestGrilleImpl {
        public final void testSolve16X16() {
            GrilleImpl grille16x16Test = new GrilleImpl(grille16x16Aremplir);
            GrilleImpl grille16x16TestRemplie = new GrilleImpl(grille16x16Remplie);
-           //assertEquals(true, grille16x16Test.solve());
+           assertEquals(true, grille16x16Test.solve());
            assertEquals(true, grille16x16TestRemplie.complete());
        }
        

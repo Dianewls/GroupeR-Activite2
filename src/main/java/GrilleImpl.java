@@ -299,9 +299,10 @@ public class GrilleImpl implements Grille {
         for (int ligne = 0; ligne < grille.length; ligne++) {
             for (int colonne = 0; colonne < grille.length; colonne++) {
                 if (grille[ligne][ colonne] == EMPTY) {
-                    for (int i = 0; i < GRILLE9X9SIZE; i++) {
-                        if (possible(ligne, colonne, CHARPOSSIBLE9x9[i])) {
-                            grille[ligne][colonne] = CHARPOSSIBLE9x9[i];
+                    //for (int i = 0; i < GRILLE16X16SIZE; i++) {
+                    for (char s : CHARPOSSIBLE16x16) {
+                        if (possible(ligne, colonne, s)) {
+                            grille[ligne][colonne] = s;
                             if (solve()) {
                                 return true;
                             }
@@ -314,6 +315,23 @@ public class GrilleImpl implements Grille {
         }
         return true;
     }
+//    for (int ligne = 0; ligne < grille.length; ligne++) {
+//        for (int colonne = 0; colonne < grille.length; colonne++) {
+//            if (grille[ligne][colonne] == EMPTY) {
+//                for (char s : t) {
+//                    if (possible(ligne, colonne, s)) {
+//                        grille[ligne][colonne] = s;
+//                        if (solve()) { //recursive
+//                            return true;
+//                        } else {
+//                            grille[ligne][colonne] = EMPTY;
+//                        }
+//                    }
+//                }
+//                return false;
+//            }
+//        }
+//    }
     public  void affiche() {
         for (int l=0; l<9; l++) {
           for (int c=0; c<9; c++) {
