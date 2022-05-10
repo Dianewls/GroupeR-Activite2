@@ -15,6 +15,10 @@ public class GrilleImpl implements Grille {
      */
     private static final int CARRESIZE16X16 = 4;
     /**
+     * CARRESIZE16X16 taille du carre d'une grille 16X16.
+     */
+    private static final int CARRESIZE25X25 = 5;
+    /**
      * GRILLE9X9SIZE represente la taille du tableau 9*9.
      */
     private static final int GRILLE9X9SIZE = 9;
@@ -22,6 +26,10 @@ public class GrilleImpl implements Grille {
      * GRILLE16X16SIZE taille du tableau 16*16.
      */
     private static final int GRILLE16X16SIZE = 16;
+    /**
+     * GRILLE16X16SIZE taille du tableau 25*25.
+     */
+    private static final int GRILLE25X25SIZE = 25;
     /**
      * Caractere possible a mettre dans la grille 9X9.
      */
@@ -31,45 +39,36 @@ public class GrilleImpl implements Grille {
      * Caractere possible a mettre dans la grille 16X16.
      */
     private static final char[] CHARPOSSIBLE16X16 = new char[]
-            {'1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B',
-            'C', 'D', 'E', 'F', 'G' };
+            {'0', '1','2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b',
+            'c', 'd', 'e', 'f' };
+    private static final char[] CHARPOSSIBLE25X25 = new char[]
+            {'0', '1','2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b',
+            'c', 'd', 'e', 'f','g','h','i','j','k','l','m','n','o' };
     /**
      * Constructeur.
      * @param unegrille est une grille de type tableau à deux dimensions
      */
-    /*
-     * public GrilleImpl(final char[][] unegrille) { if (unegrille.length ==
-     * GRILLE9X9SIZE || unegrille.length == GRILLE16X16SIZE) { this.grille =
-     * unegrille.clone(); } else { throw new
-     * IllegalArgumentException("Le tableau doit " +
-     * "être de dimension 9x9 ou 16x16"); } }
-     */
-    
-    
     public GrilleImpl(final char[][] unegrille) {
-        this.grille=new char[unegrille.length][unegrille.length];
-        for(int i=0; i<unegrille.length; i++) {
-            for(int j=0; j<unegrille.length; j++) {
-                setValue(i,j,unegrille[i][j]);
-            }
-        }
+       this.grille=new char[unegrille.length][unegrille.length];
+       for(int i=0; i<unegrille.length; i++) {
+           for(int j=0; j<unegrille.length; j++) {
+               setValue(i,j,unegrille[i][j]);
+           }
+       }
+      
+       
+//        if (unegrille.length == GRILLE9X9SIZE
+//                || unegrille.length == GRILLE16X16SIZE) {
+//            this.grille = unegrille.clone();
+//        } else {
+//            throw new IllegalArgumentException("Le tableau doit "
+//        + "être de dimension 9x9 ou 16x16");
+//        }
+    }
 
-
-//         if (unegrille.length == GRILLE9X9SIZE
-//                 || unegrille.length == GRILLE16X16SIZE) {
-//             this.grille = unegrille.clone();
-//         } else {
-//             throw new IllegalArgumentException("Le tableau doit "
-//         + "être de dimension 9x9 ou 16x16");
-//         }
-     }
-
-     public GrilleImpl(int dim) {
-         this.grille=new char[dim][dim];
-     }
-    
-    
-    
+    public GrilleImpl(int dim) {
+        this.grille=new char[dim][dim];
+    }
 
     /**
      * @return largeur/hauteur (taille) de la grille
@@ -99,6 +98,39 @@ public class GrilleImpl implements Grille {
                 }
             }
         }
+        if (this.grille.length == GRILLE25X25SIZE) {
+            for (char s : CHARPOSSIBLE25X25) {
+                if (s == c) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    public final boolean verifCharInit(final char c) {
+        if (this.grille.length == GRILLE9X9SIZE) {
+            for (char s : CHARPOSSIBLE9X9) {
+                if (s == c || c=='@') {
+                    return true;
+                }
+            }
+        }
+        if (this.grille.length == GRILLE16X16SIZE) {
+            for (char s : CHARPOSSIBLE16X16) {
+                if (s == c || c=='@') {
+                    return true;
+                }
+            }
+        }
+        if(this.grille.length == GRILLE25X25SIZE) {
+            for (char s : CHARPOSSIBLE25X25) {
+                if (s == c || c=='@') {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -118,22 +150,24 @@ public class GrilleImpl implements Grille {
                     throws IllegalArgumentException {
         if (!verifGetValue(x) || !verifGetValue(y)) {
             throw new IllegalArgumentException("x et/ou y "
-        + "est(sont) hors des dimensions");
+        + "est(sont) hors des dimensions" +x +" "+y+" "+value);
         } else {
-            if (!verifChar(value)) {
-                throw new IllegalArgumentException("Caractere non autorise");
+            if (!verifCharInit(value)) {
+                throw new IllegalArgumentException("Caractere non autorise "+x+ " "+y+ "="+value);
             }
         }
         grille[x][y] = value;
     }
 
+    
     /**
      * verifie si une coordonnée est dans la borne ou pas.
      * @param x coodonnée x dans la grille
      * @return true si x est dans la borne (0...grille.length ou false si non
      */
     public final boolean verifGetValue(final int x) {
-        if (x < 0 || x >= this.getDimension()) {
+        if (x < 0 || x >=this.getDimension()) {
+            System.out.println("verif get value x="+ x);
             return false;
         }
         return true;
@@ -146,12 +180,15 @@ public class GrilleImpl implements Grille {
      * @return valeur dans la case x,y
      * @throw IllegalArgumentException si x ou y sont hors bornes
      */
-    
     @Override
     public final char getValue(final int x, final int y) {
-        if (!verifGetValue(x) || !verifGetValue(y)) {
-            throw new IllegalArgumentException("x ou y is out of matrice");
-        } else {
+        if (!verifGetValue(x)) {
+            throw new IllegalArgumentException("x est hors borne " +x);
+        } 
+        else if( !verifGetValue(y)) {
+            throw new IllegalArgumentException("y est hors borne "+y);
+        }
+        else {
             return this.grille[x][y];
         }
     }
@@ -218,13 +255,15 @@ public class GrilleImpl implements Grille {
      * @return true si la valeur est possible dans le carre 3X3 et false si non
      */
     public final boolean carrePossible(
-            final int row, final int col, final char value) {
+        final int row, final int col, final char value) {
         int carresize = 0;
         if (verifChar(value)) {
             if (grille.length == GRILLE9X9SIZE) {
                 carresize = CARRESIZE9X9;
-            } else {
+            }else if(grille.length == CARRESIZE16X16) {
                 carresize = CARRESIZE16X16;
+            } else {
+                carresize = CARRESIZE25X25;
             }
             int r = row - row % carresize;
             int c = col - col % carresize;
@@ -266,46 +305,20 @@ public class GrilleImpl implements Grille {
                 && colonnePossible(y, value)
                 && carrePossible(x, y, value);
     }
+
     /**
-     * Cette fonction permet de resoudre une grille.
-     * @return true si la grille est resolue et false sinon
+     * @return the grille
      */
-    public final boolean solve() {
-        char[] t;
-        if (grille.length == CHARPOSSIBLE9X9.length) {
-            t = CHARPOSSIBLE9X9;
-        } else {
-            t = CHARPOSSIBLE16X16;
-        }
-        for (int ligne = 0; ligne < grille.length; ligne++) {
-            for (int colonne = 0; colonne < grille.length; colonne++) {
-                if (grille[ligne][colonne] == EMPTY) {
-                    for (char s : t) {
-                        if (possible(ligne, colonne, s)) {
-                            grille[ligne][colonne] = s;
-                            if (solve()) { //recursive
-                                return true;
-                            } else {
-                                grille[ligne][colonne] = EMPTY;
-                            }
-                        }
-                    }
-                    return false;
-                }
-            }
-        }
-        return true;
+    public char[][] getGrille() {
+        return grille;
     }
+
     /**
-     * Cette fonction permet d'afficher une grille.
+     * @param grille the grille to set
      */
-    public final void affiche() {
-        for (int l = 0; l < getDimension(); l++) {
-            for (int c = 0; c < getDimension(); c++) {
-                System.out.print(" " + grille[l][c]);
-            }
-            System.out.println();
-        }
-        System.out.println();
-      }
+    public void setGrille(char[][] grille) {
+        this.grille = grille;
+    }
+    
+    
 }
