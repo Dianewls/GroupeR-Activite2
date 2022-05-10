@@ -11,6 +11,12 @@ public class Solver {
     private static final char[] CHARPOSSIBLE16X16 = new char[]
             {'0', '1','2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b',
             'c', 'd', 'e', 'f' };
+    /**
+     * Caractere possible a mettre dans la grille 25X25.
+     */
+    private static final char[] CHARPOSSIBLE25X25 = new char[]
+            {'0', '1','2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b',
+            'c', 'd', 'e', 'f','g','h','i','j','k','l','m','n','o' };
     public Solver(GrilleImpl grille) {
         super();
         this.grille = grille;
@@ -27,12 +33,15 @@ public class Solver {
         char[] t;
         if (grille.getGrille().length == CHARPOSSIBLE9X9.length) {
             t = CHARPOSSIBLE9X9;
-        } else {
+        } else if (grille.getGrille().length == CHARPOSSIBLE16X16.length) {
             t = CHARPOSSIBLE16X16;
+        }else {
+            t = CHARPOSSIBLE25X25;
         }
         for (int ligne = 0; ligne < grille.getGrille().length; ligne++) {
             for (int colonne = 0; colonne < grille.getGrille().length; colonne++) {
                 if (grille.getGrille()[ligne][colonne] == grille.EMPTY) {
+                    //System.out.println("taille de la grille dans solve "+grille.getGrille().length);
                     for (char s : t) {
                         if (grille.possible(ligne, colonne, s)) {
                             grille.getGrille()[ligne][colonne] = s;

@@ -15,6 +15,10 @@ public class GrilleImpl implements Grille {
      */
     private static final int CARRESIZE16X16 = 4;
     /**
+     * CARRESIZE16X16 taille du carre d'une grille 16X16.
+     */
+    private static final int CARRESIZE25X25 = 5;
+    /**
      * GRILLE9X9SIZE represente la taille du tableau 9*9.
      */
     private static final int GRILLE9X9SIZE = 9;
@@ -87,14 +91,14 @@ public class GrilleImpl implements Grille {
                 }
             }
         }
-        else if (this.grille.length == GRILLE16X16SIZE) {
+        if (this.grille.length == GRILLE16X16SIZE) {
             for (char s : CHARPOSSIBLE16X16) {
                 if (s == c) {
                     return true;
                 }
             }
         }
-        else if (this.grille.length == GRILLE25X25SIZE) {
+        if (this.grille.length == GRILLE25X25SIZE) {
             for (char s : CHARPOSSIBLE25X25) {
                 if (s == c) {
                     return true;
@@ -120,14 +124,14 @@ public class GrilleImpl implements Grille {
                 }
             }
         }
-        else { //(this.grille.length == GRILLE25X25SIZE) {
+        if(this.grille.length == GRILLE25X25SIZE) {
             for (char s : CHARPOSSIBLE25X25) {
                 if (s == c || c=='@') {
                     return true;
                 }
             }
         }
-        return true;
+        return false;
     }
 
     /**
@@ -162,7 +166,8 @@ public class GrilleImpl implements Grille {
      * @return true si x est dans la borne (0...grille.length ou false si non
      */
     public final boolean verifGetValue(final int x) {
-        if (x < 0 || x >= this.getDimension()) {
+        if (x < 0 || x >=this.getDimension()) {
+            System.out.println("verif get value x="+ x);
             return false;
         }
         return true;
@@ -177,9 +182,13 @@ public class GrilleImpl implements Grille {
      */
     @Override
     public final char getValue(final int x, final int y) {
-        if (!verifGetValue(x) || !verifGetValue(y)) {
-            throw new IllegalArgumentException("x ou y is out of matrice");
-        } else {
+        if (!verifGetValue(x)) {
+            throw new IllegalArgumentException("x est hors borne " +x);
+        } 
+        else if( !verifGetValue(y)) {
+            throw new IllegalArgumentException("y est hors borne "+y);
+        }
+        else {
             return this.grille[x][y];
         }
     }
@@ -251,8 +260,10 @@ public class GrilleImpl implements Grille {
         if (verifChar(value)) {
             if (grille.length == GRILLE9X9SIZE) {
                 carresize = CARRESIZE9X9;
-            } else {
+            }else if(grille.length == CARRESIZE16X16) {
                 carresize = CARRESIZE16X16;
+            } else {
+                carresize = CARRESIZE25X25;
             }
             int r = row - row % carresize;
             int c = col - col % carresize;
