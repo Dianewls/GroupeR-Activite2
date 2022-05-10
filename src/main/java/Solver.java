@@ -67,6 +67,7 @@ public class Solver {
                 System.out.print(" " + grille.getGrille()[l][c]);
             }
             System.out.println();
+          
         }
         System.out.println();
       }
