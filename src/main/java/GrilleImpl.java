@@ -37,15 +37,39 @@ public class GrilleImpl implements Grille {
      * Constructeur.
      * @param unegrille est une grille de type tableau à deux dimensions
      */
+    /*
+     * public GrilleImpl(final char[][] unegrille) { if (unegrille.length ==
+     * GRILLE9X9SIZE || unegrille.length == GRILLE16X16SIZE) { this.grille =
+     * unegrille.clone(); } else { throw new
+     * IllegalArgumentException("Le tableau doit " +
+     * "être de dimension 9x9 ou 16x16"); } }
+     */
+    
+    
     public GrilleImpl(final char[][] unegrille) {
-        if (unegrille.length == GRILLE9X9SIZE
-                || unegrille.length == GRILLE16X16SIZE) {
-            this.grille = unegrille.clone();
-        } else {
-            throw new IllegalArgumentException("Le tableau doit "
-        + "être de dimension 9x9 ou 16x16");
+        this.grille=new char[unegrille.length][unegrille.length];
+        for(int i=0; i<unegrille.length; i++) {
+            for(int j=0; j<unegrille.length; j++) {
+                setValue(i,j,unegrille[i][j]);
+            }
         }
-    }
+
+
+//         if (unegrille.length == GRILLE9X9SIZE
+//                 || unegrille.length == GRILLE16X16SIZE) {
+//             this.grille = unegrille.clone();
+//         } else {
+//             throw new IllegalArgumentException("Le tableau doit "
+//         + "être de dimension 9x9 ou 16x16");
+//         }
+     }
+
+     public GrilleImpl(int dim) {
+         this.grille=new char[dim][dim];
+     }
+    
+    
+    
 
     /**
      * @return largeur/hauteur (taille) de la grille
@@ -122,6 +146,7 @@ public class GrilleImpl implements Grille {
      * @return valeur dans la case x,y
      * @throw IllegalArgumentException si x ou y sont hors bornes
      */
+    
     @Override
     public final char getValue(final int x, final int y) {
         if (!verifGetValue(x) || !verifGetValue(y)) {
