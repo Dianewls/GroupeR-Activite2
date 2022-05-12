@@ -41,12 +41,14 @@ public class GrilleParserParLigne {
         int dim = Integer.parseInt(args[0]);
         System.out.println("Dimension "+dim);
         Grille grille = new GrilleImpl(dim);
+        char [][] matrice = grille.getGrille();
         try {
            
             GrilleParserParLigne.parse(new File(args[1]), grille);
             System.out.println(grille.getDimension());
             for (int i = 0; i < dim; i++) {
                 for (int j = 0; j < dim; j++) {
+                    //matrice[i][j]=grille.getValue(i, j);
                     System.out.print(grille.getValue(i, j) + " ");
                 }
                 System.out.println();
@@ -55,8 +57,15 @@ public class GrilleParserParLigne {
             e.printStackTrace();
         }
         Solver solver = new Solver(grille);
-        solver.solve();
-        solver.affiche(); 
+        char [][] ma=solver.resolution_totale(matrice);
+        System.out.println("solution");
+        for (int i = 0; i < ma.length; i++) {
+            for (int j = 0; j < ma.length; j++) {
+                System.out.print(ma[i][j] + " ");
+            }
+            System.out.println();
+        }
+        //solver.affiche(); 
     }
 
 }
