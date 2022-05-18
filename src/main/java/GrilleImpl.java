@@ -69,6 +69,9 @@ public class GrilleImpl implements Grille {
     public GrilleImpl(int dim) {
         this.grille=new char[dim][dim];
     }
+    public GrilleImpl() {
+      
+    }
 
     /**
      * @return largeur/hauteur (taille) de la grille
@@ -172,7 +175,6 @@ public class GrilleImpl implements Grille {
         }
         return true;
     }
-
     /**
      * Recupere une valeur de la grille.
      * @param x position x dans la grille
@@ -192,7 +194,6 @@ public class GrilleImpl implements Grille {
             return this.grille[x][y];
         }
     }
-
     /**
      * Test si une grille est terminee.
      * @return true si la grille est complete sinon false
@@ -208,7 +209,6 @@ public class GrilleImpl implements Grille {
         }
         return true;
     }
-
     /**
      * Tester si une valeur est possible pour une ligne donnee.
      * @param ligne numero de la ligne
@@ -227,7 +227,6 @@ public class GrilleImpl implements Grille {
         }
         return true;
     }
-
     /**
      * Tester si une valeur est possible par colonne.
      * @param col   numero de la colonne
@@ -246,7 +245,6 @@ public class GrilleImpl implements Grille {
         }
         return true;
     }
-
     /**
      * verifier si valeur est possible dans 3*3 box.
      * @param value valeur qu'on ajoute
@@ -278,7 +276,6 @@ public class GrilleImpl implements Grille {
         }
         return false;
     }
-
     /**
      * Test si une valeur est possible dans la grille.
      * cela par rapport a ce qu'elle
@@ -305,20 +302,20 @@ public class GrilleImpl implements Grille {
                 && colonnePossible(y, value)
                 && carrePossible(x, y, value);
     }
-
     /**
      * @return the grille
      */
     public char[][] getGrille() {
         return grille;
-    }
-
-    /**
-     * @param grille the grille to set
-     */
-    public void setGrille(char[][] grille) {
-        this.grille = grille;
-    }
-    
-    
+    }    
+    public final void affiche() {
+        for (int l = 0; l < grille.length; l++) {
+            for (int c = 0; c < grille.length; c++) {
+                System.out.print(" " + grille[l][c]);
+            }
+            System.out.println();
+          
+        }
+        System.out.println();
+      }
 }
