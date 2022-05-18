@@ -88,6 +88,33 @@ public class TestSolver {
         Solver solver16 = new Solver(grille16);
         assertEquals(true, solver16.solve());
     }
+    /**
+     *  Test methode affiche
+     */
+    @Test
+    public final void testaffiche() {
+        GrilleImpl grille16=new GrilleImpl(grille16x16Aremplir);
+        Solver solver16 = new Solver(grille16);
+        solver16.affiche();
+    }
+    /**
+     *  Test methode resolution_totale
+     */
+    @Test
+    public final void testResolutionTotale() {
+//        GrilleImpl grille16=new GrilleImpl(grille16x16Aremplir);
+//        Solver solver16 = new Solver(grille16);
+//        solver16.affiche();
+    }
+    /**
+     *  Test methode resolution
+     */
+    @Test
+    public final void testResolution() {
+//        GrilleImpl grille16=new GrilleImpl(grille16x16Aremplir);
+//        Solver solver16 = new Solver(grille16);
+//        solver16.affiche();
+    }
     
 
 }

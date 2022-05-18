@@ -130,55 +130,6 @@ public class Solver {
         System.out.println(b);
         gri.affiche(); 
     }
-     public final void resolution (final int x, final int y, final char n, char[][] matrice) {
-         char[] t; 
-         if (grille.getGrille().length ==CHARPOSSIBLE9X9.length) { 
-             t = CHARPOSSIBLE9X9; 
-         } else if(grille.getGrille().length == CHARPOSSIBLE16X16.length) { 
-             t =CHARPOSSIBLE16X16;
-         }else {
-             t = CHARPOSSIBLE25X25; 
-         } 
-         int o=0; 
-         for (char s : t){
-             if (s==n) {
-                 break;
-             } 
-             o++; 
-         }
-         for (int i=o; i<t.length; i++) { //for (char s : t) { 
-          if ((((GrilleImpl)grille).lignePossible(x,n))&&(((GrilleImpl)grille).colonnePossible(y,n))&&(((GrilleImpl) grille).carrePossible(x,y,n))){
-              matrice[x][y]=n; 
-          } 
-      }
-  }
-      
-      
-      public final char[][] resolution_totale (char [][] matrice) { 
-          for (int x=0; x<9;x++) { 
-              for (int y=0; y<9; y++) { 
-                  resolution(x,y,'0',matrice); 
-                  if(matrice[x][y]=='@') { 
-                      if (x>0) { 
-                          resolution(x-1,y,matrice[x-1][y],matrice);
-                          while (!((x!=matrice.length)&&(y!=matrice.length)&&(matrice[x][y]!='0'))) {
-                              resolution_totale(matrice); 
-                          } 
-                      } else { 
-                          if (y>0) {
-                             resolution(matrice.length-1,y-1,matrice[matrice.length-1][y-1],matrice);
-                             while (!((x!=matrice.length)&&(y!=matrice.length)&&(matrice[x][y]!='0'))) {
-                                 resolution_totale(matrice);
-                             } 
-                          } else {
-                              System.out.println("Pas de solution");
-                             }
-                          }
-                 }
-             } 
-         }
-        return matrice; 
-    }
     /**
      * Cette fonction permet d'afficher une grille.
      */
