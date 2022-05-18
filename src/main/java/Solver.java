@@ -58,49 +58,9 @@ public class Solver {
         }
         return true;
     }
-//    public boolean estValide (char[][] grille, int position)
-//    {  
-//      char[] t;
-//      if (grille.length == CHARPOSSIBLE9X9.length) {
-//          t = CHARPOSSIBLE9X9;
-//      } else if (grille.length == CHARPOSSIBLE16X16.length) {
-//          t = CHARPOSSIBLE16X16;
-//      }else {
-//          t = CHARPOSSIBLE25X25;
-//  }
-//        // Si on est à la 82e case (on sort du tableau)
-//        if (position == 9*9)
-//            return true;
-//
-//        // On récupère les coordonnées de la case
-//        int i = position/9, j = position%9;
-//
-//        // Si la case n'est pas vide, on passe à la suivante (appel récursif)
-//        if (grille[i][j] != 0)
-//            return estValide(grille, position+1);
-//    
-//
-//        // A implémenter : backtracking
-//        //numération des valeurs possibles
-//        //for (int k=1; k <= 9; k++)
-//        for (char s : t)
-//        {
-//            // Si la valeur est absente, donc autorisée
-//            if(((GrilleImpl) g).lignePossible(i,s) && ((GrilleImpl) g).lignePossible(j,s))
-//            {
-//                // On enregistre k dans la grille
-//                grille[i][j] = s;
-//                // On appelle récursivement la fonction estValide(), pour voir si ce choix est bon par la suite
-//                if ( estValide (grille, position+1) )
-//                    return true;  // Si le choix est bon, plus la peine de continuer, on renvoie true :)
-//            }
-//        }
-//        // Tous les chiffres ont été testés, aucun n'est bon, on réinitialise la case
-//        grille[i][j] = 0;
-//        // Puis on retourne false :(
-//        return false;
-//    }
-    
+    /**
+     * Cette fonction ...
+     */
     public boolean estValide (int position)
     {  
       char[] t;

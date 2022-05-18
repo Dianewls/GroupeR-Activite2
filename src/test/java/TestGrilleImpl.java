@@ -1,4 +1,6 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -579,6 +581,19 @@ public class TestGrilleImpl {
             Assertions.assertThrows(IllegalArgumentException.class,
                     () -> grille16x16Test.carrePossible(0, col1, 'a'));
          }
+        
+//        /**
+//         * methode qui teste carrePossible().
+//         * pour voir si la grille est de taille 16
+//         */
+//        @Test
+//        public final void testCarrePossible11() {
+//            final int col1 = 88;
+//            //assertEquals(false, grille16x16Test.carrePossible(0, col1, 'A'));
+//            Assertions.assertThrows(IllegalArgumentException.class,
+//                    () -> grille16x16Test.carrePossible(0, col1, 'a'));
+//         }
+        
         /**
          * methode qui teste Possible().
          * pour voir si une valeur est impossible,
@@ -761,11 +776,25 @@ public class TestGrilleImpl {
        @Test
        public final void testSolve16X16() {
            GrilleImpl grille16x16Test = new GrilleImpl(grille16x16Aremplir);
-           Solver solver = new Solver(grille16x16Test);
            GrilleImpl grille16x16TestRemplie = new GrilleImpl(grille16x16Remplie);
-           assertEquals(false, solver.solve());
+           Solver solver = new Solver(grille16x16Test);
+           assertEquals(true, solver.solve());
            assertEquals(true, grille16x16TestRemplie.complete());
        }
-       
+       /**
+        *  Test pour le second constructeur
+        */
+       @Test
+       public final void testGrilleImpl() {
+           final int dim = 9;
+           GrilleImpl g = new GrilleImpl(dim);
+       }
+       /**
+        *  Test pour la methode affiche
+        */
+       @Test
+       public final void testAffiche() {
+           grille16x16Test.affiche();
+       }
 
 }

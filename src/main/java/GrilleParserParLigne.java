@@ -60,20 +60,6 @@ public class GrilleParserParLigne {
         boolean b=solver.estValide(0);
         System.out.println(b);
         solver.affiche(); 
-        //grille.affiche();
-        
-        //Solver solver = new Solver(grille);
-        //solver.estValide(matrice, 0);
-        
-//        char [][] ma=solver.resolution_totale(matrice);
-//        System.out.println("solution");
-//        for (int i = 0; i < ma.length; i++) {
-//            for (int j = 0; j < ma.length; j++) {
-//                System.out.print(ma[i][j] + " ");
-//            }
-//            System.out.println();
-//        }
-        //solver.affiche(); 
     }
 
 }

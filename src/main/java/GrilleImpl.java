@@ -56,6 +56,10 @@ public class GrilleImpl implements Grille {
            }
        }
     }
+    /**
+     * Constructeur.
+     * @param dim dimension de la grille
+     */
     public GrilleImpl(int dim) {
         this.grille=new char[dim][dim];
     }
@@ -242,7 +246,7 @@ public class GrilleImpl implements Grille {
         if (verifChar(value)) {
             if (grille.length == GRILLE9X9SIZE) {
                 carresize = CARRESIZE9X9;
-            }else if(grille.length == CARRESIZE16X16) {
+            }else if(grille.length == GRILLE16X16SIZE) {
                 carresize = CARRESIZE16X16;
             } else {
                 carresize = CARRESIZE25X25;
@@ -291,14 +295,17 @@ public class GrilleImpl implements Grille {
      */
     public char[][] getGrille() {
         return grille;
-    }    
+    }  
+    /**
+     *methode daffichage.
+     */
     public final void affiche() {
         for (int l = 0; l < grille.length; l++) {
             for (int c = 0; c < grille.length; c++) {
                 System.out.print(" " + grille[l][c]);
             }
             System.out.println();
-          
+
         }
         System.out.println();
       }
