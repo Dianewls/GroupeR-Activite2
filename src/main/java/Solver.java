@@ -21,19 +21,10 @@ public class Solver {
         super();
         this.grille = grille;
     }
-    Grille g=new GrilleImpl();
     public Solver(Grille grille) {
         super();
         this.grille = grille;
     }
-    
-    private char[][] Magrille;
-    
-    public Solver(char[][] g) {
-       this.Magrille=g;
-    }
-
-
     /**
      * Cette fonction permet de resoudre une grille.
      * @return true si la grille est resolue et false sinon
@@ -139,31 +130,16 @@ public class Solver {
             {
                 // On enregistre k dans la grille
                 this.grille.getGrille()[i][j] = s;
-//                System.out.println(s);
-//                System.out.println(this.grille.getGrille().toString());
                 
                 // On appelle récursivement la fonction estValide(), pour voir si ce choix est bon par la suite
                 if ( estValide ( position+1) )
                     return true;  // Si le choix est bon, plus la peine de continuer, on renvoie true :)
             }
         }
-        // Tous les chiffres ont été testés, aucun n'est bon, on réinitialise la case
         this.grille.getGrille()[i][j] = '@';
-       
         return false;
     }
     public static void main(String[] args) {
-//        char[][] grille9x9Aremplir = {
-//                {'@', '6', '@', '@', '4', '5', '3', '7', '@'},
-//                {'@', '@', '5', '6', '7', '3', '4', '2', '@'},
-//                {'@', '@', '4', '@', '@', '@', '@', '@', '1'},
-//                {'5', '@', '@', '7', '@', '2', '@', '@', '4'},
-//                {'6', '@', '9', '@', '@', '@', '2', '5', '@'},
-//                {'8', '@', '7', '@', '@', '9', '@', '@', '3'},
-//                {'4', '9', '@', '5', '1', '7', '8', '@', '@'},
-//                {'2', '1', '@', '@', '3', '6', '@', '@', '@'},
-//                {'@', '5', '@', '@', '2', '@', '1', '@', '@'}};
-        
         char[][] grille9x9Aremplir = {
                 {'@', '6', '@', '@', '4', '5', '3', '7', '@'},
                 {'@', '@', '5', '6', '7', '3', '4', '2', '@'},
@@ -173,42 +149,7 @@ public class Solver {
                 {'8', '@', '7', '@', '@', '9', '@', '@', '3'},
                 {'4', '9', '@', '5', '1', '7', '8', '@', '@'},
                 {'2', '1', '@', '@', '3', '6', '@', '@', '@'},
-                {'@', '5', '@', '@', '2', '@', '1', '@', '@'}};
-        
-//        char[][] grille16x16Aremplir = {
-//                {'@', '2', '@', '@', '8', '@', 'b', '@',
-//                 '@', '@', '@', '@', '@', '@', '5', '7'},
-//                {'9', 'f', 'c', '@', '@', '1', '@', '@',
-//                 '@', '8', '5', 'b', 'e', '4', 'a', '2'},
-//                {'@', '@', '@', '1', '@', 'a', '4', '2',
-//                 '@', '@', '@', '7', 'g', 'b', '9', '@'},
-//                {'@', '@', 'a', 'b', 'c', 'd', '5', '@',
-//                 '@', '@', '2', '4', '3', '8', '6', '@'},
-//                {'b', 'e', '@', '@', '5', '@', '@', '@',
-//                 '2', 'g', '@', '9', '4', '6', 'c', '@'},
-//                {'@', '@', '7', '@', '@', '@', '@', 'e',
-//                 '6', 'b', '3', '@', '2', '@', 'g', '@'},
-//                {'3', '6', '@', '9', '@', '@', '@', '4',
-//                 'f', 'c', 'a', '5', '@', '@', '1', '@'},
-//                {'2', 'c', '@', '@', '@', '@', '1', '6',
-//                 '4', 'd', '8', 'e', '@', '@', '@', '@'},
-//                {'@', '@', '2', '5', '@', '@', '8', 'b',
-//                 'g', '7', 'f', '@', '@', '1', '@', '@'},
-//                {'@', '@', 'b', '@', '@', '@', 'c', 'g',
-//                 '9', '@', '@', '@', '5', 'f', '@', '3'},
-//                {'1', '3', '@', '@', '7', '9', '@', '@',
-//                 '@', '@', '@', '@', '8', '2', 'd', '@'},
-//                {'c', 'd', '6', '7', '2', 'e', '@', '@',
-//                 '@', '@', '@', '8', '9', '@', '@', 'a'},
-//                {'5', 'b', '8', '2', '6', '@', '@', 'd',
-//                 '@', 'a', '@', '@', '1', '3', '@', '@'},
-//                {'6', '@', '@', 'c', '4', '@', '7', '1',
-//                 '@', '@', 'g', '@', 'b', '@', 'f', '@'},
-//                {'@', '1', '@', '4', '3', 'b', '@', '@',
-//                 '5', '9', '@', 'd', '@', '@', '8', 'g'},
-//                {'g', '@', '3', 'd', 'a', 'f', '@', '@',
-//                 'b', '4', '@', 'c', '@', '@', '2', '@'}};
-        
+                {'@', '5', '@', '@', '2', '@', '1', '@', '@'}};   
           char[][] grille16x16Aremplir = {
                  {'@','1','b','a','f','6','4','5','8','9','e','d','2','3','7','c'},
                  {'c','6','3','8','d','2','@','e','7','b','a','1','f','5','4','9'},
@@ -226,7 +167,6 @@ public class Solver {
                  {'7','d','9','5','@','f','e','1','6','a','3','b','8','2','c','4'},
                  {'4','8','c','b','7','5','2','6','f','@','d','e','9','a','3','1'},
                  {'a','2','6','@','b','3','d','c','9','1','4','8','5','e','f','7'}};
-        
         GrilleImpl gri=new GrilleImpl(grille16x16Aremplir);
         Solver solver = new Solver(gri);
         boolean b=solver.estValide(0);
@@ -242,16 +182,14 @@ public class Solver {
          }else {
              t = CHARPOSSIBLE25X25; 
          } 
-         
          int o=0; 
          for (char s : t){
              if (s==n) {
                  break;
              } 
              o++; 
-      }
-      
-      for (int i=o; i<t.length; i++) { //for (char s : t) { 
+         }
+         for (int i=o; i<t.length; i++) { //for (char s : t) { 
           if ((((GrilleImpl)grille).lignePossible(x,n))&&(((GrilleImpl)grille).colonnePossible(y,n))&&(((GrilleImpl) grille).carrePossible(x,y,n))){
               matrice[x][y]=n; 
           } 
@@ -283,58 +221,6 @@ public class Solver {
              } 
          }
         return matrice; 
-    }
-     
-    
-    public static void resolution (int x, int y, int n, int[][] matrice)
-    {
- 
-    for (int i=n; n<10; i++)
-        {
-        //if ((!doublon_ligne(x,n,0,9, matrice))&&(!doublon_colonne(y,n,0,9, matrice))&&(!doublon_carre(x,y,n,matrice)))
-            {
-            matrice[x][y]=n;
-            }
-        }
-    }
- 
-    public static void resolution_totale (int[][] matrice)
-    {
-    for (int x=0; x<9; x++)
-        {
-        for (int y=0; y<9; y++)
-            {
-            resolution(x,y,1,matrice);
-            if (matrice[x][y]==0)
-                {
-                if (x>0)
-                    {
-                    resolution(x-1,y,matrice[x-1][y]+1,matrice);
-                    while (!((x!=9)&&(y!=9)&&(matrice[x][y]!=0)))
-                        {
-                        resolution_totale(matrice);
-                        }
-                    }
-                else
-                    {
-                    if (y>0)
-                        {
-                        resolution(8,y-1,matrice[8][y-1]+1,matrice);
-                        while (!((x!=9)&&(y!=9)&&(matrice[x][y]!=0)))
-                            {
-                            resolution_totale(matrice);
-                            }
-                        }
-                    else
-                        {
-                        System.out.println("Pas de solution");
-                        }
-                    }
-                }
- 
- 
-            }
-        }
     }
     /**
      * Cette fonction permet d'afficher une grille.
