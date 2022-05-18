@@ -55,24 +55,10 @@ public class GrilleImpl implements Grille {
                setValue(i,j,unegrille[i][j]);
            }
        }
-      
-       
-//        if (unegrille.length == GRILLE9X9SIZE
-//                || unegrille.length == GRILLE16X16SIZE) {
-//            this.grille = unegrille.clone();
-//        } else {
-//            throw new IllegalArgumentException("Le tableau doit "
-//        + "être de dimension 9x9 ou 16x16");
-//        }
     }
-
     public GrilleImpl(int dim) {
         this.grille=new char[dim][dim];
     }
-    public GrilleImpl() {
-      
-    }
-
     /**
      * @return largeur/hauteur (taille) de la grille
      */
