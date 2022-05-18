@@ -29,38 +29,35 @@ public class Solver {
      * Cette fonction permet de resoudre une grille.
      * @return true si la grille est resolue et false sinon
      */
-//    public final boolean solve() {
-//        char[] t;
-//        if (grille.getGrille().length == CHARPOSSIBLE9X9.length) {
-//            t = CHARPOSSIBLE9X9;
-//        } else if (grille.getGrille().length == CHARPOSSIBLE16X16.length) {
-//            t = CHARPOSSIBLE16X16;
-//        }else {
-//            t = CHARPOSSIBLE25X25;
-//        }
-//        for (int ligne = 0; ligne < grille.getGrille().length; ligne++) {
-//            for (int colonne = 0; colonne < grille.getGrille().length; colonne++) {
-//                if (grille.getGrille()[ligne][colonne] == grille.EMPTY) {
-//                    //System.out.println("taille de la grille dans solve "+grille.getGrille().length);
-//                    for (char s : t) {
-//                        if (grille.possible(ligne, colonne, s)) {
-//                            grille.getGrille()[ligne][colonne] = s;
-//                            if (solve()) { //recursive
-//                                return true;
-//                            } else {
-//                                grille.getGrille()[ligne][colonne] = grille.EMPTY;
-//                            }
-//                        }
-//                    }
-//                    return false;
-//                }
-//            }
-//        }
-//        return true;
-//    }
-    
-    
-   
+    public final boolean solve() {
+        char[] t;
+        if (grille.getGrille().length == CHARPOSSIBLE9X9.length) {
+            t = CHARPOSSIBLE9X9;
+        } else if (grille.getGrille().length == CHARPOSSIBLE16X16.length) {
+            t = CHARPOSSIBLE16X16;
+        }else {
+            t = CHARPOSSIBLE25X25;
+        }
+        for (int ligne = 0; ligne < grille.getGrille().length; ligne++) {
+            for (int colonne = 0; colonne < grille.getGrille().length; colonne++) {
+                if (grille.getGrille()[ligne][colonne] == grille.EMPTY) {
+                    //System.out.println("taille de la grille dans solve "+grille.getGrille().length);
+                    for (char s : t) {
+                        if (grille.possible(ligne, colonne, s)) {
+                            grille.getGrille()[ligne][colonne] = s;
+                            if (solve()) { //recursive
+                                return true;
+                            } else {
+                                grille.getGrille()[ligne][colonne] = grille.EMPTY;
+                            }
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 //    public boolean estValide (char[][] grille, int position)
 //    {  
 //      char[] t;

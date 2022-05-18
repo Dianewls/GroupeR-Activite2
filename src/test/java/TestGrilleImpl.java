@@ -763,7 +763,7 @@ public class TestGrilleImpl {
            GrilleImpl grille16x16Test = new GrilleImpl(grille16x16Aremplir);
            Solver solver = new Solver(grille16x16Test);
            GrilleImpl grille16x16TestRemplie = new GrilleImpl(grille16x16Remplie);
-           //assertEquals(true, solver.solve());
+           assertEquals(false, solver.solve());
            assertEquals(true, grille16x16TestRemplie.complete());
        }
        
