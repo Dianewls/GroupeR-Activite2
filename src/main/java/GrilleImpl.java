@@ -147,8 +147,6 @@ public class GrilleImpl implements Grille {
         }
         grille[x][y] = value;
     }
-
-    
     /**
      * verifie si une coordonnée est dans la borne ou pas.
      * @param x coodonnée x dans la grille
