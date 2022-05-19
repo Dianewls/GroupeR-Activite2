@@ -802,10 +802,14 @@ public class TestGrilleImpl {
 	   //FIXME mettre une grille presque remplie
            Solver solver = new Solver(grille16x16Test);
 	   //           assertEquals(true, solver.solve());
-
-           GrilleImpl grille16x16TestRemplie = new GrilleImpl(grille16x16Remplie);
-           assertEquals(true, grille16x16TestRemplie.complete());
+	   
        }
+    
+    @Test final void testSolveDejaRemplie() {
+	GrilleImpl grille = new GrilleImpl(grille16x16Remplie);
+	Solver solver = new Solver(grille);
+	assertEquals(true, solver.solve());
+    }
        
 
 }
