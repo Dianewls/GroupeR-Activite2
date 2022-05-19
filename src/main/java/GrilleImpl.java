@@ -59,9 +59,6 @@ public class GrilleImpl implements Grille {
     public GrilleImpl(int dim) {
         this.grille=new char[dim][dim];
     }
-    /**
-     * @return largeur/hauteur (taille) de la grille
-     */
     @Override
     public final int getDimension() {
         return grille.length;
@@ -94,10 +91,8 @@ public class GrilleImpl implements Grille {
                 }
             }
         }
-        
         return false;
     }
-    
     public final boolean verifCharInit(final char c) {
         if (this.grille.length == GRILLE9X9SIZE) {
             for (char s : CHARPOSSIBLE9X9) {
@@ -122,18 +117,6 @@ public class GrilleImpl implements Grille {
         }
         return false;
     }
-
-    /**
-     * Affecte une valeur a une position dans la grille.
-     * @param x     position x dans la grille
-     * @param y     position y dans la grille
-     * @param value valeur a mettre dans la case
-     * @throw IllegalArgumentException si x ou y sont hors bornes (0-8)
-     * @throw IllegalArgumentException si la valeur est interdite aux vues des
-     *        autres valeurs de la grille
-     * @throw IllegalArgumentException si value n'est pas un caractere autorise
-     *        ('1',...,'9') pour 9X9 et ('1',...,'F') pour 16X16
-     */
     @Override
     public final void setValue(final int x, final int y, final char value)
                     throws IllegalArgumentException {
@@ -159,13 +142,6 @@ public class GrilleImpl implements Grille {
         }
         return true;
     }
-    /**
-     * Recupere une valeur de la grille.
-     * @param x position x dans la grille
-     * @param y position y dans la grille
-     * @return valeur dans la case x,y
-     * @throw IllegalArgumentException si x ou y sont hors bornes
-     */
     @Override
     public final char getValue(final int x, final int y) {
         if (!verifGetValue(x)) {

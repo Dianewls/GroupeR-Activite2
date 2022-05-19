@@ -48,7 +48,6 @@ public class GrilleParserParLigne {
             System.out.println(grille.getDimension());
             for (int i = 0; i < dim; i++) {
                 for (int j = 0; j < dim; j++) {
-                    //matrice[i][j]=grille.getValue(i, j);
                     System.out.print(grille.getValue(i, j) + " ");
                 }
                 System.out.println();
@@ -57,23 +56,9 @@ public class GrilleParserParLigne {
             e.printStackTrace();
         }
         Solver solver = new Solver(grille);
-        boolean b=solver.estValide(0);
-        System.out.println(b);
+        solver.solve();
         solver.affiche(); 
-        //grille.affiche();
-        
-        //Solver solver = new Solver(grille);
-        //solver.estValide(matrice, 0);
-        
-//        char [][] ma=solver.resolution_totale(matrice);
-//        System.out.println("solution");
-//        for (int i = 0; i < ma.length; i++) {
-//            for (int j = 0; j < ma.length; j++) {
-//                System.out.print(ma[i][j] + " ");
-//            }
-//            System.out.println();
-//        }
-        //solver.affiche(); 
+      
     }
 
 }
