@@ -7,18 +7,6 @@ public class GrilleImpl implements Grille {
      */
     private char[][] grille;
     /**
-     * CARRESIZE9X9 taille du carre d'une grille 9X9.
-     */
-    private static final int CARRESIZE9X9 = 3;
-    /**
-     * CARRESIZE16X16 taille du carre d'une grille 16X16.
-     */
-    private static final int CARRESIZE16X16 = 4;
-    /**
-     * CARRESIZE16X16 taille du carre d'une grille 16X16.
-     */
-    private static final int CARRESIZE25X25 = 5;
-    /**
      * GRILLE9X9SIZE represente la taille du tableau 9*9.
      */
     private static final int GRILLE9X9SIZE = 9;
@@ -44,20 +32,49 @@ public class GrilleImpl implements Grille {
     private static final char[] CHARPOSSIBLE25X25 = new char[]
             {'0', '1','2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b',
             'c', 'd', 'e', 'f','g','h','i','j','k','l','m','n','o' };
+
+
+    private final char[] jeuxDeCaracteres;
+    private final int carreSize;
+    
     /**
      * Constructeur.
      * @param unegrille est une grille de type tableau à deux dimensions
      */
     public GrilleImpl(final char[][] unegrille) {
-       this.grille=new char[unegrille.length][unegrille.length];
-       for(int i=0; i<unegrille.length; i++) {
+	this(unegrille.length);
+       
+	
+	for(int i=0; i<unegrille.length; i++) {
            for(int j=0; j<unegrille.length; j++) {
-               setValue(i,j,unegrille[i][j]);
+               setValue(i, j, unegrille[i][j]);
            }
        }
+
+       
     }
+
+
     public GrilleImpl(int dim) {
         this.grille=new char[dim][dim];
+	for(int i=0; i<dim; i++) {
+	    for(int j=0; j<dim; j++) {
+		this.grille[i][j] = EMPTY;
+	    }
+	}
+
+       if ( grille.length == 9 ) {
+	   this.jeuxDeCaracteres = CHARPOSSIBLE9X9;
+       } else if ( grille.length == 16 ) {
+	   this.jeuxDeCaracteres = CHARPOSSIBLE16X16;
+       } else if (grille.length == 25){
+	   this.jeuxDeCaracteres = CHARPOSSIBLE25X25;
+       } else {
+	   throw new IllegalArgumentException("dimension non supportee");
+       }
+       this.carreSize = (int) Math.sqrt(grille.length);
+
+	
     }
     /**
      * @return largeur/hauteur (taille) de la grille
@@ -73,67 +90,23 @@ public class GrilleImpl implements Grille {
      * @return true si ok ou false si non
      */
     public final boolean verifChar(final char c) {
-        if (this.grille.length == GRILLE9X9SIZE) {
-            for (char s : CHARPOSSIBLE9X9) {
-                if (s == c) {
-                    return true;
-                }
-            }
-        }
-        if (this.grille.length == GRILLE16X16SIZE) {
-            for (char s : CHARPOSSIBLE16X16) {
-                if (s == c) {
-                    return true;
-                }
-            }
-        }
-        if (this.grille.length == GRILLE25X25SIZE) {
-            for (char s : CHARPOSSIBLE25X25) {
-                if (s == c) {
-                    return true;
-                }
-            }
-        }
-        
+	for (char s : jeuxDeCaracteres) {
+	    if (s == c) {
+		return true;
+	    }
+        }        
         return false;
     }
     
     public final boolean verifCharInit(final char c) {
-        if (this.grille.length == GRILLE9X9SIZE) {
-            for (char s : CHARPOSSIBLE9X9) {
-                if (s == c || c=='@') {
-                    return true;
-                }
-            }
-        }
-        if (this.grille.length == GRILLE16X16SIZE) {
-            for (char s : CHARPOSSIBLE16X16) {
-                if (s == c || c=='@') {
-                    return true;
-                }
-            }
-        }
-        if(this.grille.length == GRILLE25X25SIZE) {
-            for (char s : CHARPOSSIBLE25X25) {
-                if (s == c || c=='@') {
-                    return true;
-                }
-            }
-        }
+	for (char s : jeuxDeCaracteres) {
+	    if (s == c || c=='@') {
+		return true;
+	    }
+	}
         return false;
     }
 
-    /**
-     * Affecte une valeur a une position dans la grille.
-     * @param x     position x dans la grille
-     * @param y     position y dans la grille
-     * @param value valeur a mettre dans la case
-     * @throw IllegalArgumentException si x ou y sont hors bornes (0-8)
-     * @throw IllegalArgumentException si la valeur est interdite aux vues des
-     *        autres valeurs de la grille
-     * @throw IllegalArgumentException si value n'est pas un caractere autorise
-     *        ('1',...,'9') pour 9X9 et ('1',...,'F') pour 16X16
-     */
     @Override
     public final void setValue(final int x, final int y, final char value)
                     throws IllegalArgumentException {
@@ -159,13 +132,7 @@ public class GrilleImpl implements Grille {
         }
         return true;
     }
-    /**
-     * Recupere une valeur de la grille.
-     * @param x position x dans la grille
-     * @param y position y dans la grille
-     * @return valeur dans la case x,y
-     * @throw IllegalArgumentException si x ou y sont hors bornes
-     */
+
     @Override
     public final char getValue(final int x, final int y) {
         if (!verifGetValue(x)) {
@@ -178,10 +145,7 @@ public class GrilleImpl implements Grille {
             return this.grille[x][y];
         }
     }
-    /**
-     * Test si une grille est terminee.
-     * @return true si la grille est complete sinon false
-     */
+
     @Override
     public final boolean complete() {
         for (int i = 0; i < grille.length; i++) {
@@ -193,6 +157,7 @@ public class GrilleImpl implements Grille {
         }
         return true;
     }
+
     /**
      * Tester si une valeur est possible pour une ligne donnee.
      * @param ligne numero de la ligne
@@ -238,19 +203,11 @@ public class GrilleImpl implements Grille {
      */
     public final boolean carrePossible(
         final int row, final int col, final char value) {
-        int carresize = 0;
         if (verifChar(value)) {
-            if (grille.length == GRILLE9X9SIZE) {
-                carresize = CARRESIZE9X9;
-            }else if(grille.length == CARRESIZE16X16) {
-                carresize = CARRESIZE16X16;
-            } else {
-                carresize = CARRESIZE25X25;
-            }
-            int r = row - row % carresize;
-            int c = col - col % carresize;
-            for (int i = r; i < r + carresize; i++) {
-                for (int j = c; j < c + carresize; j++) {
+            int r = row - row % carreSize;
+            int c = col - col % carreSize;
+            for (int i = r; i < r + carreSize; i++) {
+                for (int j = c; j < c + carreSize; j++) {
                     if (getValue(i, j) == value) {
                         return false;
                     }
