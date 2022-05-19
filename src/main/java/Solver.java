@@ -58,44 +58,6 @@ public class Solver {
         }
         return true;
     }
-    /**
-     * Cette fonction ...
-     */
-    public boolean estValide (int position)
-    {  
-      char[] t;
-      if (this.grille.getGrille().length == CHARPOSSIBLE9X9.length) {
-          t = CHARPOSSIBLE9X9;
-      } else if (this.grille.getGrille().length == CHARPOSSIBLE16X16.length) {
-          t = CHARPOSSIBLE16X16;
-      }else {
-          t = CHARPOSSIBLE25X25;
-       }
-        if (position == 16*16)
-            return true;
-
-        int i = position/16, j = position%16;
-
-        // Si la case n'est pas vide, on passe à la suivante (appel récursif)
-        if (this.grille.getGrille()[i][j] != '@')
-            return estValide( position+1);
-
-        for (char s : t)
-        {
-            // Si la valeur est absente, donc autorisée
-            if(((GrilleImpl) grille).lignePossible(i,s) && ((GrilleImpl) grille).colonnePossible(j,s))
-            {
-                // On enregistre k dans la grille
-                this.grille.getGrille()[i][j] = s;
-                
-                // On appelle récursivement la fonction estValide(), pour voir si ce choix est bon par la suite
-                if ( estValide ( position+1) )
-                    return true;  // Si le choix est bon, plus la peine de continuer, on renvoie true :)
-            }
-        }
-        this.grille.getGrille()[i][j] = '@';
-        return false;
-    }
     public static void main(String[] args) {
         char[][] grille9x9Aremplir = {
                 {'@', '6', '@', '@', '4', '5', '3', '7', '@'},
@@ -126,7 +88,7 @@ public class Solver {
                  {'a','2','6','@','b','3','d','c','9','1','4','8','5','e','f','7'}};
         GrilleImpl gri=new GrilleImpl(grille16x16Aremplir);
         Solver solver = new Solver(gri);
-        boolean b=solver.estValide(0);
+        boolean b=solver.solve();
         System.out.println(b);
         gri.affiche(); 
     }

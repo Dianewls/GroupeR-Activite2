@@ -57,7 +57,7 @@ public class GrilleParserParLigne {
             e.printStackTrace();
         }
         Solver solver = new Solver(grille);
-        boolean b=solver.estValide(0);
+        boolean b=solver.solve();
         System.out.println(b);
         solver.affiche(); 
     }
