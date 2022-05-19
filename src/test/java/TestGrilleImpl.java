@@ -805,7 +805,8 @@ public class TestGrilleImpl {
 	   
        }
     
-    @Test final void testSolveDejaRemplie() {
+    @Test
+    public final void testSolveDejaRemplie() {
 	GrilleImpl grille = new GrilleImpl(grille16x16Remplie);
 	Solver solver = new Solver(grille);
 	assertEquals(true, solver.solve());
