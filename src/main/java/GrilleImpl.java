@@ -15,30 +15,45 @@ public class GrilleImpl implements Grille {
      * Caractere possible a mettre dans la grille 16X16.
      */
     private static final char[] CHARPOSSIBLE16X16 = new char[]
-            {'0', '1','2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b',
+            {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b',
                     'c', 'd', 'e', 'f' };
+    /**
+     * Caractere possible a mettre dans la grille 25X25.
+     */
     private static final char[] CHARPOSSIBLE25X25 = new char[]
             {'0', '1','2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b',
-                    'c', 'd', 'e', 'f','g','h','i','j','k','l','m','n','o' };
+                    'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o' };
+    /**
+     * Caractere possible.
+     */
     private char[] jeuxDeCaracteres;
     @Override
     public char[] getJeuxDeCaracteres() {
-        return jeuxDeCaracteres;
+        char[] JeuxClone = this.jeuxDeCaracteres.clone();
+        return JeuxClone;
     }
+    /**
+     * taille des carrees.
+     */
+    private int carreSize;
+    /**
+     * methode qui permet de rendre la taille des carrees.
+     * @return la taille du carre
+     */
     public int getCarreSize() {
         return carreSize;
     }
-    private int carreSize;
     /**
      * Constructeur.
      * @param unegrille est une grille de type tableau à deux dimensions
      */
-    public GrilleImpl(final char[][] unegrille) {
-        this(unegrille.length);
-        for(int i=0; i<unegrille.length; i++) {
-            if (unegrille.length == unegrille[i].length) {
-                for(int j=0; j<unegrille.length; j++) {
-                    setValue(i, j, unegrille[i][j]);
+    public GrilleImpl(final char[][] grilleDeBase) {
+        this(grilleDeBase.length);
+        char[][] grilleClone = grilleDeBase.clone();
+        for(int i=0; i<grilleClone.length; i++) {
+            if (grilleClone.length == grilleClone[i].length) {
+                for(int j=0; j<grilleClone.length; j++) {
+                    setValue(i, j, grilleClone[i][j]);
                 }
             } else {
                 throw new IllegalArgumentException("dimension non supportee");
