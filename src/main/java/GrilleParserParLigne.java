@@ -41,7 +41,6 @@ public class GrilleParserParLigne {
         int dim = Integer.parseInt(args[0]);
         System.out.println("Dimension "+dim);
         GrilleImpl grille = new GrilleImpl(dim);
-        char [][] matrice = grille.getGrille();
         try {
            
             GrilleParserParLigne.parse(new File(args[1]), grille);
@@ -57,6 +56,10 @@ public class GrilleParserParLigne {
             e.printStackTrace();
         }
         Solver solver = new Solver(grille);
+<<<<<<< HEAD
+=======
+        //boolean b=solver.estValide(0);
+>>>>>>> branch 'master' of https://github.com/Dianewls/GroupeR-Activite2.git
         boolean b=solver.solve();
         System.out.println(b);
         solver.affiche(); 

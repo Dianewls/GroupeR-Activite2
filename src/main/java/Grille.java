@@ -55,12 +55,17 @@ public interface Grille {
     boolean possible(int x, int y, char value)
             throws IllegalArgumentException;
     /**
-     * @param grille the grille to get
+     * @param grille the JeuxDeCaracteres to get
      */
+<<<<<<< HEAD
     public char[][] getGrille() ;
     /**
      * @param grille the JeuxDeCaracteres to get
      */
     public char[] getJeuxDeCaracteres();
+=======
+    public char[] getJeuxDeCaracteres();
+
+>>>>>>> branch 'master' of https://github.com/Dianewls/GroupeR-Activite2.git
     
 }
