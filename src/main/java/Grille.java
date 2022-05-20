@@ -5,7 +5,7 @@ public interface Grille {
     /**
      * Caractere de case vide.
      */
-    char EMPTY = '@';
+    static char EMPTY = '@';
     /**
      * @return largeur/hauteur de la grille.
      */
@@ -57,15 +57,5 @@ public interface Grille {
     /**
      * @param grille the JeuxDeCaracteres to get
      */
-<<<<<<< HEAD
-    public char[][] getGrille() ;
-    /**
-     * @param grille the JeuxDeCaracteres to get
-     */
     public char[] getJeuxDeCaracteres();
-=======
-    public char[] getJeuxDeCaracteres();
-
->>>>>>> branch 'master' of https://github.com/Dianewls/GroupeR-Activite2.git
-    
 }
