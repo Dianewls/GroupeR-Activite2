@@ -58,6 +58,10 @@ public interface Grille {
      * @param grille the grille to get
      */
     public char[][] getGrille() ;
+    /**
+     * @param grille the JeuxDeCaracteres to get
+     */
+    public char[] getJeuxDeCaracteres();
 
     
 }

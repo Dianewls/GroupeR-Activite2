@@ -31,13 +31,13 @@ public class Solver {
      */
     public final boolean solve() {
         char[] t;
-        if (grille.getGrille().length == CHARPOSSIBLE9X9.length) {
-            t = CHARPOSSIBLE9X9;
-        } else if (grille.getGrille().length == CHARPOSSIBLE16X16.length) {
-            t = CHARPOSSIBLE16X16;
-        }else {
-            t = CHARPOSSIBLE25X25;
-        }
+        /*
+         * if (grille.getGrille().length == CHARPOSSIBLE9X9.length) { t =
+         * CHARPOSSIBLE9X9; } else if (grille.getGrille().length ==
+         * CHARPOSSIBLE16X16.length) { t = CHARPOSSIBLE16X16; }else { t =
+         * CHARPOSSIBLE25X25; }
+         */
+        t=grille.getJeuxDeCaracteres();
         for (int ligne = 0; ligne < grille.getGrille().length; ligne++) {
             for (int colonne = 0; colonne < grille.getGrille().length; colonne++) {
                 if (grille.getGrille()[ligne][colonne] == grille.EMPTY) {
@@ -166,7 +166,8 @@ public class Solver {
                  {'a','2','6','@','b','3','d','c','9','1','4','8','5','e','f','7'}};
         GrilleImpl gri=new GrilleImpl(grille16x16Aremplir);
         Solver solver = new Solver(gri);
-        boolean b=solver.estValide(0);
+        //boolean b=solver.estValide(0);
+        boolean b=solver.solve();
         System.out.println(b);
         gri.affiche(); 
     }
@@ -192,7 +193,6 @@ public class Solver {
           } 
       }
   }
-      
       
       public final char[][] resolution_totale (char [][] matrice) { 
           for (int x=0; x<9;x++) { 
