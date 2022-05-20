@@ -21,10 +21,6 @@ public class Solver {
         super();
         this.grille = grille;
     }
-    public Solver(Grille grille) {
-        super();
-        this.grille = grille;
-    }
     /**
      * Cette fonction permet de resoudre une grille.
      * @return true si la grille est resolue et false sinon
@@ -41,7 +37,6 @@ public class Solver {
         for (int ligne = 0; ligne < grille.getGrille().length; ligne++) {
             for (int colonne = 0; colonne < grille.getGrille().length; colonne++) {
                 if (grille.getGrille()[ligne][colonne] == grille.EMPTY) {
-                    //System.out.println("taille de la grille dans solve "+grille.getGrille().length);
                     for (char s : t) {
                         if (grille.possible(ligne, colonne, s)) {
                             grille.getGrille()[ligne][colonne] = s;
@@ -57,42 +52,6 @@ public class Solver {
             }
         }
         return true;
-    }
-    
-    public boolean estValide (int position)
-    {  
-      char[] t;
-      if (this.grille.getGrille().length == CHARPOSSIBLE9X9.length) {
-          t = CHARPOSSIBLE9X9;
-      } else if (this.grille.getGrille().length == CHARPOSSIBLE16X16.length) {
-          t = CHARPOSSIBLE16X16;
-      }else {
-          t = CHARPOSSIBLE25X25;
-       }
-        if (position == 16*16)
-            return true;
-
-        int i = position/16, j = position%16;
-
-        // Si la case n'est pas vide, on passe à la suivante (appel récursif)
-        if (this.grille.getGrille()[i][j] != '@')
-            return estValide( position+1);
-
-        for (char s : t)
-        {
-            // Si la valeur est absente, donc autorisée
-            if(((GrilleImpl) grille).lignePossible(i,s) && ((GrilleImpl) grille).colonnePossible(j,s))
-            {
-                // On enregistre k dans la grille
-                this.grille.getGrille()[i][j] = s;
-                
-                // On appelle récursivement la fonction estValide(), pour voir si ce choix est bon par la suite
-                if ( estValide ( position+1) )
-                    return true;  // Si le choix est bon, plus la peine de continuer, on renvoie true :)
-            }
-        }
-        this.grille.getGrille()[i][j] = '@';
-        return false;
     }
     public static void main(String[] args) {
         char[][] grille9x9Aremplir = {
@@ -124,58 +83,8 @@ public class Solver {
                  {'a','2','6','@','b','3','d','c','9','1','4','8','5','e','f','7'}};
         GrilleImpl gri=new GrilleImpl(grille16x16Aremplir);
         Solver solver = new Solver(gri);
-        boolean b=solver.estValide(0);
-        System.out.println(b);
+        solver.solve();
         gri.affiche(); 
-    }
-     public final void resolution (final int x, final int y, final char n, char[][] matrice) {
-         char[] t; 
-         if (grille.getGrille().length ==CHARPOSSIBLE9X9.length) { 
-             t = CHARPOSSIBLE9X9; 
-         } else if(grille.getGrille().length == CHARPOSSIBLE16X16.length) { 
-             t =CHARPOSSIBLE16X16;
-         }else {
-             t = CHARPOSSIBLE25X25; 
-         } 
-         int o=0; 
-         for (char s : t){
-             if (s==n) {
-                 break;
-             } 
-             o++; 
-         }
-         for (int i=o; i<t.length; i++) { //for (char s : t) { 
-          if ((((GrilleImpl)grille).lignePossible(x,n))&&(((GrilleImpl)grille).colonnePossible(y,n))&&(((GrilleImpl) grille).carrePossible(x,y,n))){
-              matrice[x][y]=n; 
-          } 
-      }
-  }
-      
-      
-      public final char[][] resolution_totale (char [][] matrice) { 
-          for (int x=0; x<9;x++) { 
-              for (int y=0; y<9; y++) { 
-                  resolution(x,y,'0',matrice); 
-                  if(matrice[x][y]=='@') { 
-                      if (x>0) { 
-                          resolution(x-1,y,matrice[x-1][y],matrice);
-                          while (!((x!=matrice.length)&&(y!=matrice.length)&&(matrice[x][y]!='0'))) {
-                              resolution_totale(matrice); 
-                          } 
-                      } else { 
-                          if (y>0) {
-                             resolution(matrice.length-1,y-1,matrice[matrice.length-1][y-1],matrice);
-                             while (!((x!=matrice.length)&&(y!=matrice.length)&&(matrice[x][y]!='0'))) {
-                                 resolution_totale(matrice);
-                             } 
-                          } else {
-                              System.out.println("Pas de solution");
-                             }
-                          }
-                 }
-             } 
-         }
-        return matrice; 
     }
     /**
      * Cette fonction permet d'afficher une grille.

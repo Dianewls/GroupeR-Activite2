@@ -5,7 +5,7 @@ public interface Grille {
     /**
      * Caractere de case vide.
      */
-    char EMPTY = '@';
+    static char EMPTY = '@';
     /**
      * @return largeur/hauteur de la grille.
      */
@@ -54,10 +54,4 @@ public interface Grille {
      */
     boolean possible(int x, int y, char value)
             throws IllegalArgumentException;
-    /**
-     * @param grille the grille to get
-     */
-    public char[][] getGrille() ;
-
-    
 }
