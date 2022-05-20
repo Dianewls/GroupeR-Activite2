@@ -16,23 +16,34 @@ public class GrilleImpl implements Grille {
      */
     private static final char[] CHARPOSSIBLE16X16 = new char[]
             {'0', '1','2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b',
-            'c', 'd', 'e', 'f' };
+                    'c', 'd', 'e', 'f' };
     private static final char[] CHARPOSSIBLE25X25 = new char[]
             {'0', '1','2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b',
-            'c', 'd', 'e', 'f','g','h','i','j','k','l','m','n','o' };
-    private final char[] jeuxDeCaracteres;
-    private final int carreSize;
+                    'c', 'd', 'e', 'f','g','h','i','j','k','l','m','n','o' };
+    private char[] jeuxDeCaracteres;
+    @Override
+    public char[] getJeuxDeCaracteres() {
+        return jeuxDeCaracteres;
+    }
+    public int getCarreSize() {
+        return carreSize;
+    }
+    private int carreSize;
     /**
      * Constructeur.
      * @param unegrille est une grille de type tableau à deux dimensions
      */
     public GrilleImpl(final char[][] unegrille) {
-	this(unegrille.length);
-	for(int i=0; i<unegrille.length; i++) {
-           for(int j=0; j<unegrille.length; j++) {
-               setValue(i, j, unegrille[i][j]);
-           }
-       }
+        this(unegrille.length);
+        for(int i=0; i<unegrille.length; i++) {
+            if (unegrille.length == unegrille[i].length) {
+                for(int j=0; j<unegrille.length; j++) {
+                    setValue(i, j, unegrille[i][j]);
+                }
+            } else {
+                throw new IllegalArgumentException("dimension non supportee");
+            }
+        }
     }
     public GrilleImpl(int dim) {
         this.grille=new char[dim][dim];
@@ -51,6 +62,16 @@ public class GrilleImpl implements Grille {
 	   throw new IllegalArgumentException("dimension non supportee");
        }
        this.carreSize = (int) Math.sqrt(grille.length);
+        if ( grille.length == 9) {
+            this.jeuxDeCaracteres = CHARPOSSIBLE9X9;
+        } else if ( grille.length == 16){
+            this.jeuxDeCaracteres = CHARPOSSIBLE16X16;
+        } else if (grille.length == 25) {
+            this.jeuxDeCaracteres = CHARPOSSIBLE25X25;
+        } else {
+            throw new IllegalArgumentException("dimension non supportee");
+        }
+        this.carreSize = (int) Math.sqrt(grille.length);
     }
     @Override
     public final int getDimension() {
@@ -62,27 +83,27 @@ public class GrilleImpl implements Grille {
      * @return true si ok ou false si non
      */
     public final boolean verifChar(final char c) {
-	for (char s : jeuxDeCaracteres) {
-	    if (s == c) {
-		return true;
-	    }
+        for (char s : jeuxDeCaracteres) {
+            if (s == c) {
+                return true;
+            }
         }        
         return false;
     }
     public final boolean verifCharInit(final char c) {
-	for (char s : jeuxDeCaracteres) {
-	    if (s == c || c=='@') {
-		return true;
-	    }
-	}
+        for (char s : jeuxDeCaracteres) {
+            if (s == c || c=='@') {
+                return true;
+            }
+        }
         return false;
     }
     @Override
     public final void setValue(final int x, final int y, final char value)
-                    throws IllegalArgumentException {
+            throws IllegalArgumentException {
         if (!verifGetValue(x) || !verifGetValue(y)) {
             throw new IllegalArgumentException("x et/ou y "
-        + "est(sont) hors des dimensions" +x +" "+y+" "+value);
+                    + "est(sont) hors des dimensions" +x +" "+y+" "+value);
         } else {
             if (!verifCharInit(value)) {
                 throw new IllegalArgumentException("Caractere non autorise "+x+ " "+y+ "="+value);
@@ -169,7 +190,7 @@ public class GrilleImpl implements Grille {
      * @return true si la valeur est possible dans le carre 3X3 et false si non
      */
     public final boolean carrePossible(
-        final int row, final int col, final char value) {
+            final int row, final int col, final char value) {
         if (verifChar(value)) {
             int r = row - row % carreSize;
             int c = col - col % carreSize;
@@ -209,16 +230,16 @@ public class GrilleImpl implements Grille {
         return lignePossible(x, value)
                 && colonnePossible(y, value)
                 && carrePossible(x, y, value);
-    }  
+    }
     public final void affiche() {
         for (int l = 0; l < grille.length; l++) {
             for (int c = 0; c < grille.length; c++) {
                 System.out.print(" " + grille[l][c]);
             }
             System.out.println();
-          
+
         }
         System.out.println();
-      }
+    }
 }
 

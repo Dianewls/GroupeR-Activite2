@@ -1,23 +1,6 @@
 public class Solver {
     private Grille grille;
-    /**
-     * Caractere possible a mettre dans la grille 9X9.
-     */
-    private static final char[] CHARPOSSIBLE9X9 = new char[]
-            {'1', '2', '3', '4', '5', '6', '7', '8', '9' };
-    /**
-     * Caractere possible a mettre dans la grille 16X16.
-     */
-    private static final char[] CHARPOSSIBLE16X16 = new char[]
-            {'0', '1','2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b',
-            'c', 'd', 'e', 'f' };
-    /**
-     * Caractere possible a mettre dans la grille 25X25.
-     */
-    private static final char[] CHARPOSSIBLE25X25 = new char[]
-            {'0', '1','2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b',
-            'c', 'd', 'e', 'f','g','h','i','j','k','l','m','n','o' };
-    public Solver(GrilleImpl grille) {
+    public Solver(Grille grille) {
         super();
         this.grille = grille;
     }
@@ -27,31 +10,57 @@ public class Solver {
      */
     public final boolean solve() {
         char[] t;
-        if (grille.getGrille().length == CHARPOSSIBLE9X9.length) {
-            t = CHARPOSSIBLE9X9;
-        } else if (grille.getGrille().length == CHARPOSSIBLE16X16.length) {
-            t = CHARPOSSIBLE16X16;
-        }else {
-            t = CHARPOSSIBLE25X25;
-        }
-        for (int ligne = 0; ligne < grille.getGrille().length; ligne++) {
-            for (int colonne = 0; colonne < grille.getGrille().length; colonne++) {
-                if (grille.getGrille()[ligne][colonne] == grille.EMPTY) {
-                    for (char s : t) {
-                        if (grille.possible(ligne, colonne, s)) {
-                            grille.getGrille()[ligne][colonne] = s;
-                            if (solve()) { //recursive
-                                return true;
-                            } else {
-                                grille.getGrille()[ligne][colonne] = grille.EMPTY;
-                            }
-                        }
+        t=grille.getJeuxDeCaracteres();
+        int [][]tableCaseVide = trouveCaseVide();
+        for (int ligne = 0; ligne < tableCaseVide.length; ligne++) {
+            for (char s : t) {
+                if (grille.possible(tableCaseVide[ligne][0], tableCaseVide[ligne][1], s)) {
+                    grille.setValue(tableCaseVide[ligne][0], tableCaseVide[ligne][1],s);
+                    if (solve()) { //recursive
+                        return true;
+                    } else {
+                        grille.setValue(tableCaseVide[ligne][0],tableCaseVide[ligne][1],Grille.EMPTY);
                     }
-                    return false;
+                }
+            }
+            return false;
+        }
+        return true;
+    }
+    /**
+     * Cette fonction permet de trouver les cases à remplir dans une grille.
+     * @return un tableau à deux dimensions des coordonnées des cases vides de la grille
+     */
+    public final int [][] trouveCaseVide() {
+        int n=nbreCaseVide();
+        int[][] t= new int [n][2];
+        int r=0;
+        int c=0;
+        for (int ligne = 0; ligne < grille.getDimension(); ligne++) {
+            for (int colonne = 0; colonne < grille.getDimension(); colonne++) {
+                if (grille.getValue(ligne,colonne) == Grille.EMPTY) {
+                    t[r][c]=ligne;
+                    t[r][c+1]=colonne;
+                    r++;
                 }
             }
         }
-        return true;
+        return t;
+    }
+    /**
+     * Cette fonction permet de trouver le nombre de cases vides dans une grille.
+     * @return ce nombre
+     */
+    public final int nbreCaseVide() {
+        int n=0;
+        for (int ligne = 0; ligne < grille.getDimension(); ligne++) {
+            for (int colonne = 0; colonne < grille.getDimension(); colonne++) {
+                if (grille.getValue(ligne,colonne) == Grille.EMPTY) {
+                    n++;
+                }
+            }
+        }
+        return n;
     }
     public static void main(String[] args) {
         char[][] grille9x9Aremplir = {
@@ -81,7 +90,7 @@ public class Solver {
                  {'7','d','9','5','@','f','e','1','6','a','3','b','8','2','c','4'},
                  {'4','8','c','b','7','5','2','6','f','@','d','e','9','a','3','1'},
                  {'a','2','6','@','b','3','d','c','9','1','4','8','5','e','f','7'}};
-        GrilleImpl gri=new GrilleImpl(grille16x16Aremplir);
+        GrilleImpl gri=new GrilleImpl(grille9x9Aremplir);
         Solver solver = new Solver(gri);
         solver.solve();
         gri.affiche(); 
@@ -90,12 +99,11 @@ public class Solver {
      * Cette fonction permet d'afficher une grille.
      */
     public final void affiche() {
-        for (int l = 0; l < grille.getGrille().length; l++) {
-            for (int c = 0; c < grille.getGrille().length; c++) {
-                System.out.print(" " + grille.getGrille()[l][c]);
+        for (int l = 0; l < grille.getDimension(); l++) {
+            for (int c = 0; c < grille.getDimension(); c++) {
+                System.out.print(" " + grille.getValue(l,c));
             }
             System.out.println();
-          
         }
         System.out.println();
       }
