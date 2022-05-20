@@ -32,9 +32,7 @@ public class Solver {
     public final boolean solve() {
         char[] t;
         t=grille.getJeuxDeCaracteres();
-        int r=0;
         int []tableCaseVide = trouveCaseVide();
-        //for (int ligne = 0; ligne < tableCaseVide.length; ligne++) {
         if(tableCaseVide==null) {
             return true;
         }
@@ -52,45 +50,29 @@ public class Solver {
     }
 
     public final int [] trouveCaseVide() {
-        int[] t= new int [2];
+        int[] t= null;
+        int nbCaractP=0;
         for (int ligne = 0; ligne < grille.getDimension(); ligne++) {
             for (int colonne = 0; colonne < grille.getDimension(); colonne++) {
                 if (grille.getValue(ligne,colonne) == Grille.EMPTY) {
-                    t[0]=ligne;
-                    t[1]=colonne;
-                    //t[r][c+2]=nbCaractPossible(ligne, colonne);
-                    return t;
-
+                    if(t==null) {
+                       t= new int [] {ligne,colonne};
+                       nbCaractP=nbCaractPossible(ligne, colonne);
+                    } else {
+                        if (nbCaractP>nbCaractPossible(ligne, colonne)) {
+                            t= new int [] {ligne,colonne};
+                            nbCaractP=nbCaractPossible(ligne, colonne);
+                        }
+                    }
+                    if(nbCaractP==1) {
+                        return t;
+                    }
+                   
                 }
             }
         }
-        return null;
-
-        //trieTab(t);
-
+        return t;
     }
-
-    public final int [][] trieTab(int [][] tab) {
-        //int [][] tab= trouveCaseVide();
-        //System.out.print("tab "+tab[0][0]+" "+tab[0][1]+" "+tab[0][2]);
-        Sort2DArrayBasedOnColumnNumber(tab,2);
-        return tab;
-    }
-
-
-    public static  void Sort2DArrayBasedOnColumnNumber (int[][] array, final int columnNumber){
-        Arrays.sort(array, new Comparator<int[]>() {
-            @Override
-            public int compare(int[] first, int[] second) {
-                if(first[columnNumber-1] > second[columnNumber-1]) 
-                    return 1;
-                else 
-                    return -1;
-            }
-        });
-    }
-
-
 
     public final int nbCaractPossible(int i, int j) {
         char[] t;
