@@ -127,9 +127,9 @@
           <configuration>
             <excludes>
             <exclude>GrilleParserParLigne.class</exclude>
+            <exclude>MonProgramme.class</exclude>
             </excludes>
 	  </configuration>
-	  
           <executions>
             <execution>
               <id>prepare-agent</id>
@@ -166,6 +166,7 @@
 	<configuration>
           <excludes>
             <exclude>GrilleParserParLigne.class</exclude>
+            <exclude>MonProgramme.class</exclude>
           </excludes>
 	</configuration>
         <reportSets>

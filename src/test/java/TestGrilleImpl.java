@@ -107,7 +107,31 @@ public class TestGrilleImpl {
                 '5', '9', '6', 'd', 'a', '7', '8', '0'},
                {'0', '7', '3', 'd', 'a', 'f', 'e', '8',
                 'b', '4', '1', 'c', '6', '9', '2', '5'}};
-       /**
+
+
+       private char[][] grille3x2Aremplir = {
+	   {'@', '1'},
+	   {'@', '@'},
+	   {'@', '@'}
+       };
+       private char[][] grille2x3Aremplir = {
+	   {'@','@', '1'},
+	   {'2','@', '@'}
+       };
+
+
+           private char[][] grille9x8Aremplir = {
+               {'@', '6', '@', '@', '4', '5', '3', '7'},
+               {'@', '@', '5', '6', '7', '3', '4', '2'},
+               {'@', '@', '4', '@', '@', '@', '@', '@'},
+               {'5', '@', '@', '7', '@', '2', '@', '@'},
+               {'6', '@', '9', '@', '@', '@', '2', '5'},
+               {'8', '@', '7', '@', '@', '9', '@', '@'},
+               {'4', '9', '@', '5', '1', '7', '8', '@'},
+               {'2', '1', '@', '@', '3', '6', '@', '@'},
+               {'@', '5', '@', '@', '2', '@', '1', '@'}};
+
+    /**
         * Grille7x8Aremplir grille de taille non valide.
         */
        private char[][] grille7x8Aremplir = {
@@ -144,6 +168,20 @@ public class TestGrilleImpl {
          Assertions.assertThrows(IllegalArgumentException.class,
                  () -> new GrilleImpl(grille7x8Aremplir));
        }
+
+        @Test
+        public final void testGrilleDimensionsTordues2x3() {
+    	Assertions.assertThrows(IllegalArgumentException.class,() ->	new GrilleImpl(grille2x3Aremplir));
+        }
+        @Test
+        public final void testGrilleDimensionsTordues3x2() {
+    	Assertions.assertThrows(IllegalArgumentException.class,() ->	new GrilleImpl(grille3x2Aremplir));
+        }
+        @Test
+        public final void testGrilleDimensionsTordues9x8() {
+    	Assertions.assertThrows(IllegalArgumentException.class,() ->	new GrilleImpl(grille9x8Aremplir));
+        }
+    
        /**
         * test de la méthode getDimension() pour une girllr 9X9.
         */
@@ -758,31 +796,9 @@ public class TestGrilleImpl {
             final int ligne = 5;
               assertEquals(false, grille9x9Test.possible(ligne, 1, '3'));
         }
+
        /**
-        *  Test solveur() pour la grille 9X9
-        */
-       @Test
-       public final void testSolve9X9() {
-           GrilleImpl grille9x9 = new GrilleImpl(grille9x9Aremplir);
-           GrilleImpl grille9x9TestRemplie =new GrilleImpl(grille9x9Remplie);
-           Solver solver = new Solver(grille9x9TestRemplie);
-           //assertEquals(true, grille9x9.solve());
-          // assertEquals(true, solver.solve());
-           assertEquals(true, grille9x9TestRemplie.complete());
-       }
-       /**
-        *  Test solveur pour la grille 16X16
-        */
-       @Test
-       public final void testSolve16X16() {
-           GrilleImpl grille16x16Test = new GrilleImpl(grille16x16Aremplir);
-           GrilleImpl grille16x16TestRemplie = new GrilleImpl(grille16x16Remplie);
-           Solver solver = new Solver(grille16x16Test);
-           assertEquals(true, solver.solve());
-           assertEquals(true, grille16x16TestRemplie.complete());
-       }
-       /**
-        *  Test pour le second constructeur
+        *  Test pour le second constructeur.
         */
        @Test
        public final void testGrilleImpl() {
@@ -790,11 +806,35 @@ public class TestGrilleImpl {
            GrilleImpl g = new GrilleImpl(dim);
        }
        /**
-        *  Test pour la methode affiche
+        *  Test pour le second constructeur 25x25.
+        */
+       @Test
+       public final void testGrilleImpl25() {
+           final int dim = 25;
+           GrilleImpl g = new GrilleImpl(dim);
+       }
+       /**
+        *  Test pour la methode getCarreSize.
+        */
+       @Test
+       public final void testGetCarreSize() {
+           assertEquals(4, grille16x16Test.getCarreSize());
+       }
+       /**
+        *  Test pour la methode affiche.
         */
        @Test
        public final void testAffiche() {
            grille16x16Test.affiche();
        }
+       /**
+        *  Test pour la methode Solve.
+        */
+        @Test
+        public final void testSolveDejaRemplie() {
+    	GrilleImpl grille = new GrilleImpl(grille16x16Remplie);
+    	Solver solver = new Solver(grille);
+    	assertEquals(true, solver.solve());
+        }
 
 }
