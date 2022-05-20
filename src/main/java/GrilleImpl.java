@@ -255,12 +255,7 @@ public class GrilleImpl implements Grille {
                 && colonnePossible(y, value)
                 && carrePossible(x, y, value);
     }
-    /**
-     * @return the grille
-     */
-    public char[][] getGrille() {
-        return grille;
-    }    
+   
     public final void affiche() {
         for (int l = 0; l < grille.length; l++) {
             for (int c = 0; c < grille.length; c++) {

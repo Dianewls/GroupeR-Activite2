@@ -41,7 +41,6 @@ public class GrilleParserParLigne {
         int dim = Integer.parseInt(args[0]);
         System.out.println("Dimension "+dim);
         GrilleImpl grille = new GrilleImpl(dim);
-        char [][] matrice = grille.getGrille();
         try {
            
             GrilleParserParLigne.parse(new File(args[1]), grille);

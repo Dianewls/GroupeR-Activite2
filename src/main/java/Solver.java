@@ -17,10 +17,7 @@ public class Solver {
     private static final char[] CHARPOSSIBLE25X25 = new char[]
             {'0', '1','2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b',
             'c', 'd', 'e', 'f','g','h','i','j','k','l','m','n','o' };
-    public Solver(GrilleImpl grille) {
-        super();
-        this.grille = grille;
-    }
+
     public Solver(Grille grille) {
         super();
         this.grille = grille;
@@ -38,17 +35,17 @@ public class Solver {
          * CHARPOSSIBLE25X25; }
          */
         t=grille.getJeuxDeCaracteres();
-        for (int ligne = 0; ligne < grille.getGrille().length; ligne++) {
-            for (int colonne = 0; colonne < grille.getGrille().length; colonne++) {
-                if (grille.getGrille()[ligne][colonne] == grille.EMPTY) {
+        for (int ligne = 0; ligne < grille.getDimension(); ligne++) {
+            for (int colonne = 0; colonne < grille.getDimension(); colonne++) {
+                if (grille.getValue(ligne,colonne) == Grille.EMPTY) {
                     //System.out.println("taille de la grille dans solve "+grille.getGrille().length);
                     for (char s : t) {
                         if (grille.possible(ligne, colonne, s)) {
-                            grille.getGrille()[ligne][colonne] = s;
+                            grille.setValue(ligne,colonne,s);
                             if (solve()) { //recursive
                                 return true;
                             } else {
-                                grille.getGrille()[ligne][colonne] = grille.EMPTY;
+                                grille.setValue(ligne,colonne,Grille.EMPTY);
                             }
                         }
                     }
@@ -104,9 +101,9 @@ public class Solver {
     public boolean estValide (int position)
     {  
       char[] t;
-      if (this.grille.getGrille().length == CHARPOSSIBLE9X9.length) {
+      if (this.grille.getDimension() == CHARPOSSIBLE9X9.length) {
           t = CHARPOSSIBLE9X9;
-      } else if (this.grille.getGrille().length == CHARPOSSIBLE16X16.length) {
+      } else if (this.grille.getDimension() == CHARPOSSIBLE16X16.length) {
           t = CHARPOSSIBLE16X16;
       }else {
           t = CHARPOSSIBLE25X25;
@@ -117,7 +114,7 @@ public class Solver {
         int i = position/16, j = position%16;
 
         // Si la case n'est pas vide, on passe à la suivante (appel récursif)
-        if (this.grille.getGrille()[i][j] != '@')
+        if (this.grille.getValue(i,j) != '@')
             return estValide( position+1);
 
         for (char s : t)
@@ -126,14 +123,14 @@ public class Solver {
             if(((GrilleImpl) grille).lignePossible(i,s) && ((GrilleImpl) grille).colonnePossible(j,s))
             {
                 // On enregistre k dans la grille
-                this.grille.getGrille()[i][j] = s;
+                this.grille.setValue(i,j,s);
                 
                 // On appelle récursivement la fonction estValide(), pour voir si ce choix est bon par la suite
                 if ( estValide ( position+1) )
                     return true;  // Si le choix est bon, plus la peine de continuer, on renvoie true :)
             }
         }
-        this.grille.getGrille()[i][j] = '@';
+        this.grille.setValue(i,j,'@');
         return false;
     }
     public static void main(String[] args) {
@@ -173,9 +170,9 @@ public class Solver {
     }
      public final void resolution (final int x, final int y, final char n, char[][] matrice) {
          char[] t; 
-         if (grille.getGrille().length ==CHARPOSSIBLE9X9.length) { 
+         if (grille.getDimension() ==CHARPOSSIBLE9X9.length) { 
              t = CHARPOSSIBLE9X9; 
-         } else if(grille.getGrille().length == CHARPOSSIBLE16X16.length) { 
+         } else if(grille.getDimension() == CHARPOSSIBLE16X16.length) { 
              t =CHARPOSSIBLE16X16;
          }else {
              t = CHARPOSSIBLE25X25; 
@@ -223,9 +220,9 @@ public class Solver {
      * Cette fonction permet d'afficher une grille.
      */
     public final void affiche() {
-        for (int l = 0; l < grille.getGrille().length; l++) {
-            for (int c = 0; c < grille.getGrille().length; c++) {
-                System.out.print(" " + grille.getGrille()[l][c]);
+        for (int l = 0; l < grille.getDimension(); l++) {
+            for (int c = 0; c < grille.getDimension(); c++) {
+                System.out.print(" " + grille.getValue(l,c));
             }
             System.out.println();
           
