@@ -38,17 +38,17 @@ public class Solver {
         if(tableCaseVide==null) {
             return true;
         }
-            for (char s : t) {
-                if (grille.possible(tableCaseVide[0], tableCaseVide[1],s)) {
-                    grille.setValue(tableCaseVide[0], tableCaseVide[1],s);
-                    if (solve()) { //recursive
-                        return true;
-                    } else {
-                        grille.setValue(tableCaseVide[0],tableCaseVide[1],Grille.EMPTY);
-                    }
+        for (char s : t) {
+            if (grille.possible(tableCaseVide[0], tableCaseVide[1],s)) {
+                grille.setValue(tableCaseVide[0], tableCaseVide[1],s);
+                if (solve()) { //recursive
+                    return true;
+                } else {
+                    grille.setValue(tableCaseVide[0],tableCaseVide[1],Grille.EMPTY);
                 }
             }
-            return false;
+        }
+        return false;
     }
 
     public final int [] trouveCaseVide() {
@@ -60,50 +60,38 @@ public class Solver {
                     t[1]=colonne;
                     //t[r][c+2]=nbCaractPossible(ligne, colonne);
                     return t;
+
                 }
             }
         }
         return null;
-        
+
         //trieTab(t);
-        
+
     }
-    
+
     public final int [][] trieTab(int [][] tab) {
         //int [][] tab= trouveCaseVide();
         //System.out.print("tab "+tab[0][0]+" "+tab[0][1]+" "+tab[0][2]);
         Sort2DArrayBasedOnColumnNumber(tab,2);
         return tab;
     }
-    
-    
+
+
     public static  void Sort2DArrayBasedOnColumnNumber (int[][] array, final int columnNumber){
         Arrays.sort(array, new Comparator<int[]>() {
             @Override
             public int compare(int[] first, int[] second) {
-               if(first[columnNumber-1] > second[columnNumber-1]) 
-                   return 1;
-               else 
-                   return -1;
+                if(first[columnNumber-1] > second[columnNumber-1]) 
+                    return 1;
+                else 
+                    return -1;
             }
         });
     }
-    
-    
 
-    public final int nbreCaseVide() {
-        int n=0;
-        for (int ligne = 0; ligne < grille.getDimension(); ligne++) {
-            for (int colonne = 0; colonne < grille.getDimension(); colonne++) {
-                if (grille.getValue(ligne,colonne) == Grille.EMPTY) {
-                    n++;
-                }
-            }
-        }
-        return n;
 
-    }
-    
+
     public final int nbCaractPossible(int i, int j) {
         char[] t;
         int n=0;
@@ -115,83 +103,20 @@ public class Solver {
         }
         return n;
     }
-    //    public boolean estValide (char[][] grille, int position)
-    //    {  
-    //      char[] t;
-    //      if (grille.length == CHARPOSSIBLE9X9.length) {
-    //          t = CHARPOSSIBLE9X9;
-    //      } else if (grille.length == CHARPOSSIBLE16X16.length) {
-    //          t = CHARPOSSIBLE16X16;
-    //      }else {
-    //          t = CHARPOSSIBLE25X25;
-    //  }
-    //        // Si on est à la 82e case (on sort du tableau)
-    //        if (position == 9*9)
-    //            return true;
-    //
-    //        // On récupère les coordonnées de la case
-    //        int i = position/9, j = position%9;
-    //
-    //        // Si la case n'est pas vide, on passe à la suivante (appel récursif)
-    //        if (grille[i][j] != 0)
-    //            return estValide(grille, position+1);
-    //    
-    //
-    //        // A implémenter : backtracking
-    //        //numération des valeurs possibles
-    //        //for (int k=1; k <= 9; k++)
-    //        for (char s : t)
-    //        {
-    //            // Si la valeur est absente, donc autorisée
-    //            if(((GrilleImpl) g).lignePossible(i,s) && ((GrilleImpl) g).lignePossible(j,s))
-    //            {
-    //                // On enregistre k dans la grille
-    //                grille[i][j] = s;
-    //                // On appelle récursivement la fonction estValide(), pour voir si ce choix est bon par la suite
-    //                if ( estValide (grille, position+1) )
-    //                    return true;  // Si le choix est bon, plus la peine de continuer, on renvoie true :)
-    //            }
-    //        }
-    //        // Tous les chiffres ont été testés, aucun n'est bon, on réinitialise la case
-    //        grille[i][j] = 0;
-    //        // Puis on retourne false :(
-    //        return false;
-    //    }
-
-    public boolean estValide (int position)
-    {  
-        char[] t;
-        if (this.grille.getDimension() == CHARPOSSIBLE9X9.length) {
-            t = CHARPOSSIBLE9X9;
-        } else if (this.grille.getDimension() == CHARPOSSIBLE16X16.length) {
-            t = CHARPOSSIBLE16X16;
-        }else {
-            t = CHARPOSSIBLE25X25;
-        }
-        if (position == 16*16)
-            return true;
-
-        int i = position/16, j = position%16;
-
-        // Si la case n'est pas vide, on passe à la suivante (appel récursif)
-        if (this.grille.getValue(i,j) != '@')
-            return estValide( position+1);
-
-        for (char s : t)
-        {
-            // Si la valeur est absente, donc autorisée
-            if(((GrilleImpl) grille).lignePossible(i,s) && ((GrilleImpl) grille).colonnePossible(j,s))
-            {
-                // On enregistre k dans la grille
-                this.grille.setValue(i,j,s);
-
-                // On appelle récursivement la fonction estValide(), pour voir si ce choix est bon par la suite
-                if ( estValide ( position+1) )
-                    return true;  // Si le choix est bon, plus la peine de continuer, on renvoie true :)
+    /**
+     * Cette fonction permet de trouver le nombre de cases vides dans une grille.
+     * @return ce nombre
+     */
+    public final int nbreCaseVide() {
+        int n=0;
+        for (int ligne = 0; ligne < grille.getDimension(); ligne++) {
+            for (int colonne = 0; colonne < grille.getDimension(); colonne++) {
+                if (grille.getValue(ligne,colonne) == Grille.EMPTY) {
+                    n++;
+                }
             }
         }
-        this.grille.setValue(i,j,'@');
-        return false;
+        return n;
     }
     public static void main(String[] args) {
         char[][] grille9x9Aremplir = {
@@ -204,6 +129,7 @@ public class Solver {
                 {'4', '9', '@', '5', '1', '7', '8', '@', '@'},
                 {'2', '1', '@', '@', '3', '6', '@', '@', '@'},
                 {'@', '5', '@', '@', '2', '@', '1', '@', '@'}};   
+
         char[][] grille16x16Aremplir = {
                 {'@','1','b','a','f','6','4','5','8','9','e','d','2','3','7','c'},
                 {'c','6','3','8','d','2','@','e','7','b','a','1','f','5','4','9'},
@@ -223,59 +149,10 @@ public class Solver {
                 {'a','2','6','@','b','3','d','c','9','1','4','8','5','e','f','7'}};
         GrilleImpl gri=new GrilleImpl(grille16x16Aremplir);
         Solver solver = new Solver(gri);
-        //boolean b=solver.estValide(0);
-        boolean b=solver.solve();
-        System.out.println(b);
+        solver.solve();
         gri.affiche(); 
     }
-    public final void resolution (final int x, final int y, final char n, char[][] matrice) {
-        char[] t; 
-        if (grille.getDimension() ==CHARPOSSIBLE9X9.length) { 
-            t = CHARPOSSIBLE9X9; 
-        } else if(grille.getDimension() == CHARPOSSIBLE16X16.length) { 
-            t =CHARPOSSIBLE16X16;
-        }else {
-            t = CHARPOSSIBLE25X25; 
-        } 
-        int o=0; 
-        for (char s : t){
-            if (s==n) {
-                break;
-            } 
-            o++; 
-        }
-        for (int i=o; i<t.length; i++) { //for (char s : t) { 
-            if ((((GrilleImpl)grille).lignePossible(x,n))&&(((GrilleImpl)grille).colonnePossible(y,n))&&(((GrilleImpl) grille).carrePossible(x,y,n))){
-                matrice[x][y]=n; 
-            } 
-        }
-    }
 
-    public final char[][] resolution_totale (char [][] matrice) { 
-        for (int x=0; x<9;x++) { 
-            for (int y=0; y<9; y++) { 
-                resolution(x,y,'0',matrice); 
-                if(matrice[x][y]=='@') { 
-                    if (x>0) { 
-                        resolution(x-1,y,matrice[x-1][y],matrice);
-                        while (!((x!=matrice.length)&&(y!=matrice.length)&&(matrice[x][y]!='0'))) {
-                            resolution_totale(matrice); 
-                        } 
-                    } else { 
-                        if (y>0) {
-                            resolution(matrice.length-1,y-1,matrice[matrice.length-1][y-1],matrice);
-                            while (!((x!=matrice.length)&&(y!=matrice.length)&&(matrice[x][y]!='0'))) {
-                                resolution_totale(matrice);
-                            } 
-                        } else {
-                            System.out.println("Pas de solution");
-                        }
-                    }
-                }
-            } 
-        }
-        return matrice; 
-    }
     /**
      * Cette fonction permet d'afficher une grille.
      */
@@ -287,6 +164,5 @@ public class Solver {
             System.out.println();
 
         }
-        System.out.println();
     }
 }

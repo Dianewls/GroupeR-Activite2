@@ -7,18 +7,6 @@ public class GrilleImpl implements Grille {
      */
     private char[][] grille;
     /**
-     * GRILLE9X9SIZE represente la taille du tableau 9*9.
-     */
-    private static final int GRILLE9X9SIZE = 9;
-    /**
-     * GRILLE16X16SIZE taille du tableau 16*16.
-     */
-    private static final int GRILLE16X16SIZE = 16;
-    /**
-     * GRILLE16X16SIZE taille du tableau 25*25.
-     */
-    private static final int GRILLE25X25SIZE = 25;
-    /**
      * Caractere possible a mettre dans la grille 9X9.
      */
     private static final char[] CHARPOSSIBLE9X9 = new char[]
@@ -32,27 +20,21 @@ public class GrilleImpl implements Grille {
     private static final char[] CHARPOSSIBLE25X25 = new char[]
             {'0', '1','2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b',
                     'c', 'd', 'e', 'f','g','h','i','j','k','l','m','n','o' };
-
-
-    private final char[] jeuxDeCaracteres;
+    private char[] jeuxDeCaracteres;
     @Override
     public char[] getJeuxDeCaracteres() {
         return jeuxDeCaracteres;
     }
-
-
     public int getCarreSize() {
         return carreSize;
     }
-    private final int carreSize;
-
+    private int carreSize;
     /**
      * Constructeur.
      * @param unegrille est une grille de type tableau à deux dimensions
      */
     public GrilleImpl(final char[][] unegrille) {
         this(unegrille.length);
-
         for(int i=0; i<unegrille.length; i++) {
             if (unegrille.length == unegrille[i].length) {
                 for(int j=0; j<unegrille.length; j++) {
@@ -62,11 +44,7 @@ public class GrilleImpl implements Grille {
                 throw new IllegalArgumentException("dimension non supportee");
             }
         }
-
-
     }
-
-
     public GrilleImpl(int dim) {
         this.grille=new char[dim][dim];
         for(int i=0; i<dim; i++) {
@@ -74,7 +52,16 @@ public class GrilleImpl implements Grille {
                 this.grille[i][j] = EMPTY;
             }
         }
-
+       if ( grille.length == 9 ) {
+           this.jeuxDeCaracteres = CHARPOSSIBLE9X9;
+       } else if ( grille.length == 16 ) {
+           this.jeuxDeCaracteres = CHARPOSSIBLE16X16;
+       } else if (grille.length == 25){
+           this.jeuxDeCaracteres = CHARPOSSIBLE25X25;
+       } else {
+	   throw new IllegalArgumentException("dimension non supportee");
+       }
+       this.carreSize = (int) Math.sqrt(grille.length);
         if ( grille.length == 9) {
             this.jeuxDeCaracteres = CHARPOSSIBLE9X9;
         } else if ( grille.length == 16){
@@ -85,17 +72,11 @@ public class GrilleImpl implements Grille {
             throw new IllegalArgumentException("dimension non supportee");
         }
         this.carreSize = (int) Math.sqrt(grille.length);
-
-
     }
-    /**
-     * @return largeur/hauteur (taille) de la grille
-     */
     @Override
     public final int getDimension() {
         return grille.length;
     }
-
     /**
      * Verify if the character to add is authorized dans grille 9X9 ou 16X16.
      * @param c caractere a verifier
@@ -109,7 +90,6 @@ public class GrilleImpl implements Grille {
         }        
         return false;
     }
-
     public final boolean verifCharInit(final char c) {
         for (char s : jeuxDeCaracteres) {
             if (s == c || c=='@') {
@@ -118,7 +98,6 @@ public class GrilleImpl implements Grille {
         }
         return false;
     }
-
     @Override
     public final void setValue(final int x, final int y, final char value)
             throws IllegalArgumentException {
@@ -144,7 +123,6 @@ public class GrilleImpl implements Grille {
         }
         return true;
     }
-
     @Override
     public final char getValue(final int x, final int y) {
         if (!verifGetValue(x)) {
@@ -157,7 +135,6 @@ public class GrilleImpl implements Grille {
             return this.grille[x][y];
         }
     }
-
     @Override
     public final boolean complete() {
         for (int i = 0; i < grille.length; i++) {
@@ -169,7 +146,6 @@ public class GrilleImpl implements Grille {
         }
         return true;
     }
-
     /**
      * Tester si une valeur est possible pour une ligne donnee.
      * @param ligne numero de la ligne
@@ -255,7 +231,6 @@ public class GrilleImpl implements Grille {
                 && colonnePossible(y, value)
                 && carrePossible(x, y, value);
     }
-   
     public final void affiche() {
         for (int l = 0; l < grille.length; l++) {
             for (int c = 0; c < grille.length; c++) {
