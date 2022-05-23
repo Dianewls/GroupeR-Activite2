@@ -247,8 +247,10 @@ public class GrilleImpl implements Grille {
     }
     /**
      * méthode qui copie une grille.
+     * @param g est la grille à copier
+     * @return la grille receptrice
      */
-    public final static Grille copieGrille( Grille g) {
+    public static final  Grille copieGrille(final Grille g) {
         final Grille gr = g;
         return gr;
     }
