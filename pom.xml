@@ -216,13 +216,11 @@
         </reportSets>
       </plugin>
 
-      
       <plugin><!-- pour avoir le rapport spotbugs -->
       <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
         <version>4.5.3.0</version>
       </plugin>
-
 
       <plugin><!-- pour avoir le lien au code source dans les rapports -->
         <groupId>org.apache.maven.plugins</groupId>

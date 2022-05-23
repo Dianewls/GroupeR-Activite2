@@ -1,11 +1,29 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 /**
- * Parser de grille de sudoku utilisant un BufferedReader
+ * Parser de grille de sudoku utilisant un BufferedReader.
  */
-public class GrilleParserParLigne {
-    public static void parse(InputStream in, Grille grille) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
+public final class GrilleParserParLigne {
+    /**
+     * constructeur.
+     */
+    private GrilleParserParLigne() {
+    }
+    /**
+     * méthode qui permet de parcourir le fichier.
+     * @param grille grille à parcourir
+     * @throws IOException exception en cas de problème
+     * @param in input
+     */
+    public static void parse(final InputStream in, final Grille grille)
+            throws IOException {
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(in, StandardCharsets.UTF_8))) {
             int dimension = grille.getDimension();
             String line;
             int lineCount = 0;
@@ -17,24 +35,32 @@ public class GrilleParserParLigne {
             }
         }
     }
-    public static void parse(File f, Grille grille) throws IOException {
+    /**
+     * méthode qui permet de parcourir le fichier.
+     * @param f le fichier
+     * @param grille grille à parcourir
+     * @throws IOException exception en cas de problème
+     */
+    public static void parse(final File f, final Grille grille)
+            throws IOException {
         try (InputStream in = new FileInputStream(f)) {
           parse(in, grille);
         }
     }
     /**
-     * usage: GrilleParserParLigne dimension fichier
+     * usage: GrilleParserParLigne dimension fichier.
      * <p>
      * exemple: GrilleParserParLigne 16 ma_grille_16x16.txt
+     * @param args argument du main
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         try {
             System.in.read();
         } catch (IOException e) {
             e.printStackTrace();
         }
         int dim = Integer.parseInt(args[0]);
-        System.out.println("Dimension "+dim);
+        System.out.println("Dimension " + dim);
         GrilleImpl grille = new GrilleImpl(dim);
         try {
             GrilleParserParLigne.parse(new File(args[1]), grille);
@@ -50,7 +76,7 @@ public class GrilleParserParLigne {
         }
         Solver solver = new Solver(grille);
         solver.solve();
-        solver.affiche(); 
+        solver.affiche();
         grille.affiche();
     }
 }

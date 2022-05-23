@@ -107,29 +107,34 @@ public class TestGrilleImpl {
                 '5', '9', '6', 'd', 'a', '7', '8', '0'},
                {'0', '7', '3', 'd', 'a', 'f', 'e', '8',
                 'b', '4', '1', 'c', '6', '9', '2', '5'}};
-
-
+       /**
+        * mauvaise grille pour test.
+        */
        private char[][] grille3x2Aremplir = {
        {'@', '1'},
        {'@', '@'},
        {'@', '@'}
        };
+       /**
+        * mauvaise grille pour test.
+        */
        private char[][] grille2x3Aremplir = {
-       {'@','@', '1'},
-       {'2','@', '@'}
+       {'@', '@', '1'},
+       {'2', '@', '@'}
        };
-
-
-           private char[][] grille9x8Aremplir = {
-               {'@', '6', '@', '@', '4', '5', '3', '7'},
-               {'@', '@', '5', '6', '7', '3', '4', '2'},
-               {'@', '@', '4', '@', '@', '@', '@', '@'},
-               {'5', '@', '@', '7', '@', '2', '@', '@'},
-               {'6', '@', '9', '@', '@', '@', '2', '5'},
-               {'8', '@', '7', '@', '@', '9', '@', '@'},
-               {'4', '9', '@', '5', '1', '7', '8', '@'},
-               {'2', '1', '@', '@', '3', '6', '@', '@'},
-               {'@', '5', '@', '@', '2', '@', '1', '@'}};
+       /**
+        * mauvaise grille pour test.
+        */
+       private char[][] grille9x8Aremplir = {
+           {'@', '6', '@', '@', '4', '5', '3', '7'},
+           {'@', '@', '5', '6', '7', '3', '4', '2'},
+           {'@', '@', '4', '@', '@', '@', '@', '@'},
+           {'5', '@', '@', '7', '@', '2', '@', '@'},
+           {'6', '@', '9', '@', '@', '@', '2', '5'},
+           {'8', '@', '7', '@', '@', '9', '@', '@'},
+           {'4', '9', '@', '5', '1', '7', '8', '@'},
+           {'2', '1', '@', '@', '3', '6', '@', '@'},
+           {'@', '5', '@', '@', '2', '@', '1', '@'}};
 
     /**
         * Grille7x8Aremplir grille de taille non valide.
@@ -160,28 +165,6 @@ public class TestGrilleImpl {
         */
        private GrilleImpl grille16x16TestRemplie =
                new GrilleImpl(grille16x16Remplie);
-       /**
-        * methode qui teste le constructeur avec une grille 7X8.
-        */
-       @Test
-       public final void grillConstruteurTestKo() {
-         Assertions.assertThrows(IllegalArgumentException.class,
-                 () -> new GrilleImpl(grille7x8Aremplir));
-       }
-
-        @Test
-        public final void testGrilleDimensionsTordues2x3() {
-        Assertions.assertThrows(IllegalArgumentException.class,() ->    new GrilleImpl(grille2x3Aremplir));
-        }
-        @Test
-        public final void testGrilleDimensionsTordues3x2() {
-        Assertions.assertThrows(IllegalArgumentException.class,() ->    new GrilleImpl(grille3x2Aremplir));
-        }
-        @Test
-        public final void testGrilleDimensionsTordues9x8() {
-        Assertions.assertThrows(IllegalArgumentException.class,() ->    new GrilleImpl(grille9x8Aremplir));
-        }
-    
        /**
         * test de la méthode getDimension() pour une girllr 9X9.
         */
@@ -619,19 +602,6 @@ public class TestGrilleImpl {
             Assertions.assertThrows(IllegalArgumentException.class,
                     () -> grille16x16Test.carrePossible(0, col1, 'a'));
          }
-        
-//        /**
-//         * methode qui teste carrePossible().
-//         * pour voir si la grille est de taille 16
-//         */
-//        @Test
-//        public final void testCarrePossible11() {
-//            final int col1 = 88;
-//            //assertEquals(false, grille16x16Test.carrePossible(0, col1, 'A'));
-//            Assertions.assertThrows(IllegalArgumentException.class,
-//                    () -> grille16x16Test.carrePossible(0, col1, 'a'));
-//         }
-        
         /**
          * methode qui teste Possible().
          * pour voir si une valeur est impossible,
@@ -818,7 +788,8 @@ public class TestGrilleImpl {
         */
        @Test
        public final void testGetCarreSize() {
-           assertEquals(4, grille16x16Test.getCarreSize());
+           final int v = 4;
+           assertEquals(v, grille16x16Test.getCarreSize());
        }
        /**
         *  Test pour la methode affiche.

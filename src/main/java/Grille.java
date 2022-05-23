@@ -55,7 +55,7 @@ public interface Grille {
     boolean possible(int x, int y, char value)
             throws IllegalArgumentException;
     /**
-     * grille the JeuxDeCaracteres to get
+     * grille the JeuxDeCaracteres to get.
      * @return le jeu de caractères
      */
      char[] getJeuxDeCaracteres();
