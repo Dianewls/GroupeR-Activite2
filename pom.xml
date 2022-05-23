@@ -127,6 +127,7 @@
           <configuration>
             <excludes>
             <exclude>GrilleParserParLigne.class</exclude>
+	    <exclude>Grille.class</exclude>
             <exclude>MonProgramme.class</exclude>
             </excludes>
 	  </configuration>
@@ -166,6 +167,7 @@
 	<configuration>
           <excludes>
             <exclude>GrilleParserParLigne.class</exclude>
+	    <exclude>Grille.class</exclude>
             <exclude>MonProgramme.class</exclude>
           </excludes>
 	</configuration>
