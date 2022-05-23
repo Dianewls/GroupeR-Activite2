@@ -29,6 +29,8 @@ public class Solver {
                 grille.setValue(tableCaseVide[0], tableCaseVide[1], s);
                 if (solve()) { //recursive
                     return true;
+                }else {
+                    grille.setValue(tableCaseVide[0],tableCaseVide[1],Grille.EMPTY);
                 }
             }
         }
